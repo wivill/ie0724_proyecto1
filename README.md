@@ -16,7 +16,7 @@
    jose.lopezpicado@ucr.ac.cr
    mariela.hernandezchacon@ucr.ac.cr
    willy.villalobos@ucr.ac.cr
-   bernardo.zunigaalvarado@ucr.ac.cr
+   bernardo.zuniga@ucr.ac.cr
 
  Descripción: Este repositorio contiene el código para el desarrollo del 
  proyecto 1 del curso IE0724 - Laboratorio de Programación.
