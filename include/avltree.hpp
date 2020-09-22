@@ -1,3 +1,8 @@
+
+#include <list>
+
+using namespace std;
+
 /**
  * Códigos de error
  */
@@ -39,7 +44,7 @@ struct avl_node {
  *                             de la función
  */
 int avl_create(
-  float                     *in_number_list,
+  list<float>     *in_number_list,
   struct avl_node *new_root_node);
 
 
