@@ -20,42 +20,47 @@ int avl_create(
 
   for (auto &&value : *in_number_list)
   {
-    avl_node new_node = {NULL, NULL, value};
-    avl_node_add(*new_root_node, new_node, new_root_node);
+    avl_node* new_node =  new avl_node{NULL, NULL, value};
+    avl_node_add(new_root_node, new_node, new_root_node);
   }
   
   return AVL_SUCCESS;
 }
 
 int avl_node_add(
-  struct avl_node  in_root,
-  struct avl_node  new_node,
-  struct avl_node *new_root)
+  struct avl_node  *in_root,
+  struct avl_node  *new_node,
+  struct avl_node  *new_root)
 {
   if (new_root == NULL)
   {
+    cout << "INVALID";
     return AVL_INVALID_PARAM;
   }
-  else if (new_node.value < in_root.value)
+  else if (new_node->value < in_root->value)
   {
-    if (*in_root.lc_node != NULL)
+    if (in_root->lc_node != NULL)
     {
-      avl_node_add(*in_root.lc_node, new_node, in_root.lc_node);
+      cout << "recursivo left" << endl;
+      avl_node_add(in_root->lc_node, new_node, new_root);
     }
     else
     {
-      new_root->lc_node = &in_root;
+      cout << "left " << new_node->value << " value " << in_root->value << endl;
+      in_root->lc_node = new_node;
     }
   }
   else
   {
-    if (*in_root.rc_node != NULL)
+    if (in_root->rc_node != NULL)
     {
-      avl_node_add(*in_root.rc_node, new_node, new_root);
+      cout << "recursivo right" << endl;
+      avl_node_add(in_root->rc_node, new_node, new_root);
     }
     else
     {
-      new_root->rc_node = &in_root;
+      cout << "right " << new_node->value << " value " << in_root->value << endl;
+      in_root->lc_node = new_node;
     }
   }
   
@@ -98,7 +103,7 @@ int avl_print_node(
   bool             isLeft
   )
 {
-  if (in_root != NULL)
+  if (&in_root != NULL)
   {
     cout << prefix;
     cout << ( isLeft ? "├──" : "└──" );
@@ -116,4 +121,19 @@ int avl_print(
 {
   avl_print_node("", in_root, false);
   return AVL_SUCCESS;
+}
+
+int print_tonto(
+  struct avl_node  &in_root)
+{
+  struct avl_node* nodo = &in_root;
+
+  while (nodo != NULL)
+  {
+    cout << "HOLA " << nodo->value <<  endl;
+    nodo = nodo->rc_node;
+  }
+
+  return AVL_SUCCESS;
+  
 }

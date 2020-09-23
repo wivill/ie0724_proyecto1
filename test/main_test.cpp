@@ -23,10 +23,11 @@ TEST(TestName, insert_element){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-    struct avl_node nombre = {NULL, NULL, 0.0};
+    struct avl_node nombre = {NULL, NULL, 11};
     
     avl_create(&listaGanadora, &nombre);
-    avl_print(nombre);
+    // avl_print(nombre);
+    print_tonto(nombre);
 }
 
 int main(int argc, char const **argv)

@@ -63,9 +63,9 @@ int avl_create(
  *                        de la función
  */
 int avl_node_add(
-  struct avl_node  in_root,
-  struct avl_node  new_node,
-  struct avl_node *new_root);
+  struct avl_node  *in_root,
+  struct avl_node  *new_node,
+  struct avl_node  *new_root);
 
 
 
@@ -153,4 +153,7 @@ int avl_print_node(
  */
 int avl_print(
   struct avl_node  in_root);
+
+int print_tonto(
+  struct avl_node  &in_root);
 
