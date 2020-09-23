@@ -14,7 +14,6 @@ using namespace std;
  * 
  */
 
-
 /**
  * Códigos de error
  */
