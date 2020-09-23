@@ -138,9 +138,9 @@ int avl_min_get(
 
 
 int avl_print_node(
-  const string&    prefix,
-  struct avl_node  in_root,
-  bool             isLeft);
+  const string&     prefix,
+  struct avl_node  *in_root,
+  bool              isLeft);
 
 /**
  * avl_print
@@ -152,8 +152,4 @@ int avl_print_node(
  *                        de la función
  */
 int avl_print(
-  struct avl_node  in_root);
-
-int print_tonto(
-  struct avl_node  &in_root);
-
+  struct avl_node  *in_root);

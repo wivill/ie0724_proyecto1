@@ -1,14 +1,3 @@
-/**
- * @file avltree.cpp
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2020-08-31
- * 
- * @copyright Copyright (c) 2020
- * 
- */
-
 #include <avltree.hpp>
 #include <iostream>
 #include <string>
@@ -60,7 +49,7 @@ int avl_node_add(
     else
     {
       cout << "right " << new_node->value << " value " << in_root->value << endl;
-      in_root->lc_node = new_node;
+      in_root->rc_node = new_node;
     }
   }
   
@@ -98,42 +87,27 @@ int avl_min_get(
 }
 
 int avl_print_node(
-  const string&    prefix,
-  struct avl_node  in_root,
-  bool             isLeft
+  const string&     prefix,
+  struct avl_node  *in_root,
+  bool              isLeft
   )
 {
-  if (&in_root != NULL)
+  if (in_root != NULL)
   {
     cout << prefix;
     cout << ( isLeft ? "├──" : "└──" );
-    cout << in_root.value << endl;
+    cout << in_root->value << endl;
 
-    avl_print_node( prefix + (isLeft ? "│   " : "    "), *in_root.lc_node, true );
-    avl_print_node( prefix + (isLeft ? "│   " : "    "), *in_root.rc_node, false );
+    avl_print_node( prefix + (isLeft ? "│   " : "    "), in_root->lc_node, true );
+    avl_print_node( prefix + (isLeft ? "│   " : "    "), in_root->rc_node, false );
   }
   
   return AVL_SUCCESS;
 }
 
 int avl_print(
-  struct avl_node  in_root)
+  struct avl_node  *in_root)
 {
   avl_print_node("", in_root, false);
   return AVL_SUCCESS;
-}
-
-int print_tonto(
-  struct avl_node  &in_root)
-{
-  struct avl_node* nodo = &in_root;
-
-  while (nodo != NULL)
-  {
-    cout << "HOLA " << nodo->value <<  endl;
-    nodo = nodo->rc_node;
-  }
-
-  return AVL_SUCCESS;
-  
 }
