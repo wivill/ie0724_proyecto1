@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
- * @file avltree.cpp
+ * @file avltree.hpp
  * @author your name (you@domain.com)
  * @brief 
  * @version 0.1
