@@ -14,7 +14,6 @@ using namespace std;
  * 
  */
 
-/**
  * Códigos de error
  */
 enum avl_error_codes {
@@ -76,9 +75,6 @@ int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
   struct avl_node  *new_root);
-
-
-
 
 /**
  * avl_node_remove

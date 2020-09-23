@@ -63,7 +63,6 @@ int avl_node_add(
       in_root->rc_node = new_node;
     }
   }
-  
   return AVL_SUCCESS;
 }
 
