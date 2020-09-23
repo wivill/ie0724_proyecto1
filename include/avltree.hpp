@@ -1,9 +1,19 @@
 
 #include <list>
-
+#include <string>
 using namespace std;
 
 /**
+ * @file avltree.hpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2020-08-31
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
  * Códigos de error
  */
 enum avl_error_codes {
@@ -28,7 +38,8 @@ struct avl_node {
   /** Número flotante asociado al nodo */
   float value;
 
-  // Pueden añadir más datos
+  /** Altura **/
+  int height;
 };
 
 
@@ -61,10 +72,9 @@ int avl_create(
  *                        de la función
  */
 int avl_node_add(
-  struct avl_node  in_root,
-  struct avl_node  new_node,
-  struct avl_node *new_root);
-
+  struct avl_node  *in_root,
+  struct avl_node  *new_node,
+  struct avl_node  *new_root);
 
 /**
  * avl_node_remove
@@ -133,6 +143,11 @@ int avl_min_get(
   struct avl_node *min_node);
 
 
+int avl_print_node(
+  const string&     prefix,
+  struct avl_node  *in_root,
+  bool              isLeft);
+
 /**
  * avl_print
  * Se imprime el árbol en terminal.
@@ -143,4 +158,4 @@ int avl_min_get(
  *                        de la función
  */
 int avl_print(
-  struct avl_node  in_root);
+  struct avl_node  *in_root);

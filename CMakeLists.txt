@@ -9,3 +9,5 @@ add_subdirectory(src)
 add_subdirectory(debug)
 
 add_subdirectory(test)
+
+set(CMAKE_BUILD_TYPE RelWithDebInfo)
