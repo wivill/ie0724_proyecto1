@@ -14,6 +14,7 @@ using namespace std;
  * 
  */
 
+/**
  * Códigos de error
  */
 enum avl_error_codes {
