@@ -26,8 +26,7 @@ TEST(TestName, insert_element){
     struct avl_node nombre = {NULL, NULL, 11};
     
     avl_create(&listaGanadora, &nombre);
-    // avl_print(nombre);
-    print_tonto(nombre);
+    avl_print(nombre);
 }
 
 int main(int argc, char const **argv)
