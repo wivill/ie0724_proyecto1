@@ -1,4 +1,5 @@
 
+
 #include <list>
 #include <string>
 using namespace std;
@@ -25,6 +26,8 @@ enum avl_error_codes {
   AVL_NOT_FOUND     = -4,
   // Pueden añadir más
 };
+
+#define EPSILON 0.00001
 
 /**
  * Struct que define un nodo de la estructura de datos
@@ -109,8 +112,8 @@ int avl_node_remove(
  *                             de la función
  */
 int avl_search(
-  struct avl_node  in_root,
-  float                      num,
+  struct avl_node *in_root,
+  float            num,
   struct avl_node *found_node);
 
 
@@ -125,7 +128,7 @@ int avl_search(
  *                        de la función
  */
 int avl_max_get(
-  struct avl_node  in_root,
+  struct avl_node *in_root,
   struct avl_node *max_node);
 
 
@@ -140,7 +143,7 @@ int avl_max_get(
  *                        de la función
  */
 int avl_min_get(
-  struct avl_node  in_root,
+  struct avl_node *in_root,
   struct avl_node *min_node);
 
 
@@ -160,3 +163,10 @@ int avl_print_node(
  */
 int avl_print(
   struct avl_node  *in_root);
+
+bool compare_float(
+  const float A,
+  const float B
+);
+
+
