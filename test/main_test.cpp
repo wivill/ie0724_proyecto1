@@ -15,7 +15,8 @@
 using namespace std;
 
 TEST(TestName, insert_element){
-    /*
+    
+    
     list<float> listaGanadora;
 
     listaGanadora.push_front(2.5);
@@ -24,11 +25,13 @@ TEST(TestName, insert_element){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-    struct avl_node nombre = {NULL, NULL, 11};
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
-    avl_create(&listaGanadora, &nombre);
-    avl_print(&nombre);
+    avl_create(&listaGanadora, nombre);
+    avl_print(nombre);
 
+
+    /**
     struct avl_node* min_node;
     avl_min_get(&nombre, &min_node);
     cout << min_node->value << " MIN"<< endl;
@@ -39,9 +42,15 @@ TEST(TestName, insert_element){
 
 
     struct avl_node* search_node;
-    avl_search(&nombre, 16.0, &search_node);
+    avl_search(&nombre, 42.69, &search_node);
     cout << "search "<< search_node->value << endl;
+
+    struct avl_node* new_root;
+    avl_rotate_right(search_node,new_root);
+    avl_print(&nombre);
     */
+
+    free_avl_tree(nombre);
 
 }
 
