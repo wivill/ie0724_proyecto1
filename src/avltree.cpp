@@ -12,6 +12,7 @@
 #include <avltree.hpp>
 #include <iostream>
 #include <string>
+#include <math.h>
 
 int avl_create(
   list<float>    *in_number_list,
@@ -41,7 +42,6 @@ int avl_node_add(
   {
     if (in_root->lc_node != NULL)
     {
-      cout << "recursivo left" << endl;
       avl_node_add(in_root->lc_node, new_node, new_root);
     }
     else
@@ -75,25 +75,69 @@ int avl_node_remove(
 }
 
 int avl_search(
-  struct avl_node  in_root,
-  float                      num,
-  struct avl_node *found_node)
+  struct avl_node *in_root,
+  float            num,
+  struct avl_node **found_node)
 {
-  return AVL_SUCCESS;
+  if (in_root->value == num)
+  {
+    *found_node = in_root;
+    return AVL_SUCCESS;
+  }
+  else if (in_root->value > num)
+  {
+    return avl_search(in_root->lc_node, num, found_node);
+  }
+  else if (in_root->value < num)
+  {
+    return avl_search(in_root->rc_node, num, found_node);
+  }
+  else
+  {
+    *found_node = NULL;
+    return AVL_NOT_FOUND;
+  } 
+
 }
 
 int avl_max_get(
-  struct avl_node  in_root,
-  struct avl_node *max_node)
+  struct avl_node *in_root,
+  struct avl_node **max_node)
 {
-  return AVL_SUCCESS;
+  if (in_root == NULL)
+  {
+    *max_node = NULL;
+    return AVL_NOT_FOUND;
+  }
+  else if (in_root->rc_node == NULL)
+  {
+    *max_node = in_root;
+    return AVL_SUCCESS;
+  }
+  else
+  {
+    return avl_max_get(in_root->rc_node, max_node);
+  }
 }
 
 int avl_min_get(
-  struct avl_node  in_root,
-  struct avl_node *min_node)
+  struct avl_node *in_root,
+  struct avl_node **min_node)
 {
-  return AVL_SUCCESS;
+  if (in_root == NULL)
+  {
+    *min_node = NULL;
+    return AVL_NOT_FOUND;
+  }
+  else if (in_root->lc_node == NULL)
+  {
+    *min_node = in_root;
+    return AVL_SUCCESS;
+  }
+  else
+  {
+    return avl_min_get(in_root->lc_node, min_node);
+  }
 }
 
 int avl_print_node(
