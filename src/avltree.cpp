@@ -42,7 +42,6 @@ int avl_node_add(
   {
     if (in_root->lc_node != NULL)
     {
-      cout << "recursivo left" << endl;
       avl_node_add(in_root->lc_node, new_node, new_root);
     }
     else
@@ -78,28 +77,24 @@ int avl_node_remove(
 int avl_search(
   struct avl_node *in_root,
   float            num,
-  struct avl_node *found_node)
+  struct avl_node **found_node)
 {
-  if (compare_float(in_root->value, num))
+  if (in_root->value == num)
   {
-    cout << "elif value = num" << in_root->value << num << endl;
-    found_node = in_root;
+    *found_node = in_root;
     return AVL_SUCCESS;
   }
   else if (in_root->value > num)
   {
-    cout << "elif value > num" << in_root->value << num << endl;
     return avl_search(in_root->lc_node, num, found_node);
   }
   else if (in_root->value < num)
   {
-    cout << "elif value < num" << in_root->value << num << endl;
     return avl_search(in_root->rc_node, num, found_node);
   }
   else
   {
-    cout << "null" << endl;
-    found_node = NULL;
+    *found_node = NULL;
     return AVL_NOT_FOUND;
   } 
 
@@ -107,16 +102,16 @@ int avl_search(
 
 int avl_max_get(
   struct avl_node *in_root,
-  struct avl_node *max_node)
+  struct avl_node **max_node)
 {
   if (in_root == NULL)
   {
-    max_node = NULL;
+    *max_node = NULL;
     return AVL_NOT_FOUND;
   }
   else if (in_root->rc_node == NULL)
   {
-    max_node = in_root;
+    *max_node = in_root;
     return AVL_SUCCESS;
   }
   else
@@ -127,16 +122,16 @@ int avl_max_get(
 
 int avl_min_get(
   struct avl_node *in_root,
-  struct avl_node *min_node)
+  struct avl_node **min_node)
 {
   if (in_root == NULL)
   {
-    min_node = NULL;
+    *min_node = NULL;
     return AVL_NOT_FOUND;
   }
   else if (in_root->lc_node == NULL)
   {
-    min_node = in_root;
+    *min_node = in_root;
     return AVL_SUCCESS;
   }
   else
@@ -170,11 +165,3 @@ int avl_print(
   avl_print_node("", in_root, false);
   return AVL_SUCCESS;
 }
-
-bool compare_float(
-  const float A,
-  const float B)
-{
-  return fabs(A - B) < EPSILON;
-}
-

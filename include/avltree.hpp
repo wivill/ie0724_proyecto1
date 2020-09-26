@@ -114,7 +114,7 @@ int avl_node_remove(
 int avl_search(
   struct avl_node *in_root,
   float            num,
-  struct avl_node *found_node);
+  struct avl_node **found_node);
 
 
 /**
@@ -129,7 +129,7 @@ int avl_search(
  */
 int avl_max_get(
   struct avl_node *in_root,
-  struct avl_node *max_node);
+  struct avl_node **max_node);
 
 
 /**
@@ -144,7 +144,7 @@ int avl_max_get(
  */
 int avl_min_get(
   struct avl_node *in_root,
-  struct avl_node *min_node);
+  struct avl_node **min_node);
 
 
 int avl_print_node(
@@ -163,10 +163,4 @@ int avl_print_node(
  */
 int avl_print(
   struct avl_node  *in_root);
-
-bool compare_float(
-  const float A,
-  const float B
-);
-
 
