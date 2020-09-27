@@ -41,8 +41,8 @@ int free_avl_tree(
 int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
-  struct avl_node  *new_root)
-{
+  struct avl_node  *new_root
+  ){
   if (new_root == NULL)
   {
     return AVL_INVALID_PARAM;
@@ -78,10 +78,23 @@ int avl_rotate_left(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
 ){
-    struct avl_node* temp = in_root->rc_node;
-  in_root->rc_node      = temp->lc_node;
-  in_root->lc_node      = in_root;
-  new_root              = temp;
+  struct avl_node* temp = in_root->rc_node;
+  if (in_root->pc_node != NULL){
+    if( in_root->pc_node->rc_node->value == in_root->value ){
+      in_root->pc_node->rc_node = temp;
+    } 
+    else{
+      in_root->pc_node->lc_node = temp;
+    }  
+  }
+  else{
+    temp->pc_node = NULL;
+  }
+  in_root->pc_node       = temp;
+  temp->lc_node->pc_node = in_root; 
+  in_root->rc_node       = temp->lc_node;
+  temp->lc_node          = in_root; 
+  new_root               = temp;
   return AVL_SUCCESS;
 }
 
@@ -89,10 +102,24 @@ int avl_rotate_right(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
 ){
-  struct avl_node* temp = in_root->lc_node;
-  in_root->lc_node      = temp->rc_node;
-  in_root->rc_node      = in_root;
-  new_root              = temp;
+  struct avl_node* temp = in_root->lc_node; 
+  if (in_root->pc_node != NULL){
+    if( in_root->pc_node->rc_node->value == in_root->value ){
+      in_root->pc_node->rc_node = temp;
+    } 
+    else{
+      in_root->pc_node->lc_node = temp;
+    }  
+  }
+  else{
+    temp->pc_node = NULL;
+  }
+  temp->rc_node->pc_node = in_root;  
+  in_root->pc_node       = temp;          // temp = x
+  in_root->lc_node       = temp->rc_node; // in_root = y      
+  temp->rc_node          = in_root;       // temp->rc  = b
+     
+  new_root               = temp;
   return AVL_SUCCESS;
 }
 
