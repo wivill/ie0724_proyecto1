@@ -40,7 +40,6 @@ TEST(TestName, insert_element){
     struct avl_node* max_node;
     avl_max_get(nombre, &max_node);
     cout << max_node->value << " MAX"<< endl;
-
     
     struct avl_node* search_node;
     avl_search(nombre, 11, &search_node);
@@ -56,10 +55,54 @@ TEST(TestName, insert_element){
 }
 
 /*
+Test positivo para avl_create
+*/
+
+TEST(avl_create, positive){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    status = avl_create(&listaGanadora, nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);
+}
+
+/*
+Test positivo para avl_create
+*/
+
+TEST(avl_print, positive){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    avl_create(&listaGanadora, nombre);
+
+    status = avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);
+}
+
+/*
 Test positivo para avl_search
 */
 
-TEST(positive_avl_search, avl_search){
+TEST(avl_search, positive){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -75,43 +118,15 @@ TEST(positive_avl_search, avl_search){
 
     avl_create(&listaGanadora, nombre);
     struct avl_node* busq;
-    //struct avl_node* busq = new avl_node{NULL, NULL, NULL, 1};
-    //avl_create(NULL, busq);
     status = avl_search(nombre, 18.5, &busq);
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
 /*
-Test negativo 1 para avl_search, con un parámetro inválido para found_node
+Test negativo para avl_search, con un parámetro inválido para valor buscado
 */
 
-/*
-
-TEST(negative1_avl_search, avl_search){
-    int status;
-    list<float> listaGanadora;
-    listaGanadora.push_front(18.5);
-    listaGanadora.push_front(13.99);
-    listaGanadora.push_front(2.5);
-    listaGanadora.push_front(16.0);
-    listaGanadora.push_front(55.2);
-    listaGanadora.push_front(42.69);
-    listaGanadora.push_front(0.5);
-
-
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
-
-    avl_create(&listaGanadora, nombre);
-    status = avl_search(nombre, 5, NULL);
-    ASSERT_EQ(status, AVL_OUT_OF_RANGE);
-}
-*/
-
-/*
-Test negativo 2 para avl_search, con un parámetro inválido para valor buscado
-*/
-
-TEST(negative2_avl_search, avl_search){
+TEST(avl_search, negative){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -127,7 +142,7 @@ TEST(negative2_avl_search, avl_search){
 
     avl_create(&listaGanadora, nombre);
     struct avl_node* busq;
-    status = avl_search(nombre, 0.5, &busq);
+    status = avl_search(nombre, 0.6, &busq);
     ASSERT_EQ(status, AVL_NOT_FOUND);    
 }
 
@@ -137,7 +152,7 @@ TEST(negative2_avl_search, avl_search){
 Test positivo free_avl_tree
 */
 
-TEST(positive_free_avl_tree, free_avl_tree){
+TEST(free_avl_tree, positive){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -161,7 +176,7 @@ TEST(positive_free_avl_tree, free_avl_tree){
 Test positivo max_get
 */
 
-TEST(positive_avl_max_get, avl_max_get){
+TEST(avl_max_get, positive){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -185,7 +200,7 @@ TEST(positive_avl_max_get, avl_max_get){
 Test positivo min_get
 */
 
-TEST(positive_avl_min_get, avl_min_get){
+TEST(avl_min_get, positive){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
