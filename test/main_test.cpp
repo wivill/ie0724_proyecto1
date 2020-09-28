@@ -99,6 +99,108 @@ TEST(avl_print, positive){
 }
 
 /*
+Test negativo para avl_node_add. Probando condición para new_root == NULL
+*/
+
+TEST(avl_node_add, negative){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    avl_create(&listaGanadora, nombre);
+    avl_print(nombre);
+
+    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
+    status = avl_node_add(nombre, nuevo_nodo, NULL);
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_INVALID_PARAM);
+}
+
+/*
+Test positivo para avl_node_add. Agregando nodo 14.
+*/
+
+TEST(avl_node_add, positive){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    avl_create(&listaGanadora, nombre);
+    avl_print(nombre);
+
+    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
+    status = avl_node_add(nombre, nuevo_nodo, nombre);
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);
+}
+
+/*
+Test positivo para avl_rotate_left.
+*/
+
+TEST(avl_rotate_left, positive){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    avl_create(&listaGanadora, nombre);
+    avl_print(nombre);
+
+    status = avl_rotate_left(nombre, nombre);
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);
+}
+
+/*
+Test positivo para avl_rotate_right.
+*/
+
+TEST(avl_rotate_right, positive){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(13.99);
+    listaGanadora.push_front(2.5);
+    listaGanadora.push_front(16.0);
+    listaGanadora.push_front(55.2);
+    listaGanadora.push_front(42.69);
+    listaGanadora.push_front(0.5);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    avl_create(&listaGanadora, nombre);
+    avl_print(nombre);
+
+    status = avl_rotate_right(nombre, nombre);
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);
+}
+
+/*
 Test positivo para avl_search
 */
 
@@ -146,8 +248,6 @@ TEST(avl_search, negative){
     ASSERT_EQ(status, AVL_NOT_FOUND);    
 }
 
-
-
 /*
 Test positivo free_avl_tree
 */
@@ -163,14 +263,13 @@ TEST(free_avl_tree, positive){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
     avl_create(&listaGanadora, nombre);
     status = free_avl_tree(nombre);
+
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
-
 
 /*
 Test positivo max_get
