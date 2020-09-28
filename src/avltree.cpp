@@ -143,14 +143,29 @@ int avl_search(
   }
   else if (in_root->value > num)
   {
-    return avl_search(in_root->lc_node, num, found_node);
+    if (in_root->lc_node == NULL)
+    {
+      return AVL_NOT_FOUND;
+    } 
+    else 
+    {
+      return avl_search(in_root->lc_node, num, found_node);
+    }
   }
   else if (in_root->value < num)
   {
-    return avl_search(in_root->rc_node, num, found_node);
+    if (in_root->rc_node == NULL)
+    {
+      return AVL_NOT_FOUND;
+    }
+    else 
+    {
+      return avl_search(in_root->rc_node, num, found_node);
+    }
   }
   else
   {
+    cout << "NULL" << " " << endl;
     *found_node = NULL;
     return AVL_NOT_FOUND;
   } 
