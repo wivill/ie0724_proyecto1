@@ -74,7 +74,10 @@ TEST(positive_avl_search, avl_search){
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
     avl_create(&listaGanadora, nombre);
-    status = avl_search(nombre, 18.5, &nombre);
+    struct avl_node* busq;
+    //struct avl_node* busq = new avl_node{NULL, NULL, NULL, 1};
+    //avl_create(NULL, busq);
+    status = avl_search(nombre, 18.5, &busq);
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
@@ -123,7 +126,8 @@ TEST(negative2_avl_search, avl_search){
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
     avl_create(&listaGanadora, nombre);
-    status = avl_search(nombre, 0.5, &nombre);
+    struct avl_node* busq;
+    status = avl_search(nombre, 0.5, &busq);
     ASSERT_EQ(status, AVL_NOT_FOUND);    
 }
 
@@ -172,7 +176,8 @@ TEST(positive_avl_max_get, avl_max_get){
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
     avl_create(&listaGanadora, nombre);
-    status = avl_max_get(nombre, &nombre);
+    struct avl_node* max;
+    status = avl_max_get(nombre, &max);
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
@@ -195,7 +200,8 @@ TEST(positive_avl_min_get, avl_min_get){
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
     avl_create(&listaGanadora, nombre);
-    status = avl_min_get(nombre, &nombre);
+    struct avl_node* min;
+    status = avl_min_get(nombre, &min);
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
