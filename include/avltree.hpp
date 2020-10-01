@@ -107,9 +107,9 @@ int avl_rotate_right(
  *                             de la función
  */
 int avl_node_remove(
-  struct avl_node  in_root,
-  struct avl_node  node_to_remove,
-  struct avl_node *new_root);
+  struct avl_node *&in_root,
+  struct avl_node *&node_to_remove,
+  struct avl_node *&new_root);
 
 
 /**

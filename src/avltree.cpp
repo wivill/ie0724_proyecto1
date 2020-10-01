@@ -123,11 +123,42 @@ int avl_rotate_right(
   return AVL_SUCCESS;
 }
 
+
 int avl_node_remove(
-  struct avl_node  in_root,
-  struct avl_node  node_to_remove,
-  struct avl_node *new_root)
+  struct avl_node *&in_root,
+  struct avl_node *&node_to_remove,
+  struct avl_node *&new_root)
 {
+  struct avl_node * temp;
+  struct avl_node * parent = node_to_remove->pc_node;
+  if(node_to_remove->lc_node == NULL && node_to_remove->rc_node == NULL){
+    if(parent->lc_node == node_to_remove){
+      parent->lc_node = NULL;
+    }
+    else
+    {
+      parent->rc_node = NULL;
+    }
+    delete node_to_remove;
+  }
+  else if(node_to_remove->lc_node == NULL)
+  {
+    temp = node_to_remove->rc_node;
+    node_to_remove->value = temp->value;
+    avl_node_remove(temp,temp,new_root);
+  }
+  else if(node_to_remove->rc_node == NULL)
+  {
+    temp = node_to_remove->lc_node;
+    node_to_remove->value = temp->value;
+    avl_node_remove(temp,temp,new_root);
+  }
+  else{
+    avl_min_get(node_to_remove, &temp);
+    node_to_remove->value = temp->value; 
+    avl_node_remove(temp,temp,new_root);
+  }
+
   return AVL_SUCCESS;
 }
 

@@ -45,11 +45,16 @@ TEST(TestName, insert_element){
     struct avl_node* search_node;
     avl_search(nombre, 11, &search_node);
     cout << "search "<< search_node->value << endl;
+    
 
+    struct avl_node* new_root;
+    avl_node_remove(nombre,search_node, new_root);
+    avl_print(nombre);
+    /*
     struct avl_node* new_root;
     avl_rotate_left(search_node,new_root);
     avl_print(new_root);
-
+    */
     cout << "sdfsdf" << endl;
     free_avl_tree(nombre);
 
