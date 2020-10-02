@@ -18,24 +18,33 @@ int avl_create(
   list<float>    *in_number_list,
   avl_node       *new_root_node)
 {
-
   for (auto &&value : *in_number_list)
   {
-    avl_node* new_node =  new avl_node{NULL, NULL, value};
+    avl_node* new_node =  new avl_node{NULL, NULL, NULL, value};
     avl_node_add(new_root_node, new_node, new_root_node);
   }
   
   return AVL_SUCCESS;
 }
 
+int free_avl_tree(
+  struct avl_node  *&in_root
+){
+  if(in_root == NULL){
+    return AVL_SUCCESS;
+  }
+  free_avl_tree(in_root->lc_node);
+  free_avl_tree(in_root->rc_node);
+  delete(in_root);
+}
+
 int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
-  struct avl_node  *new_root)
-{
+  struct avl_node  *new_root
+  ){
   if (new_root == NULL)
   {
-    cout << "INVALID";
     return AVL_INVALID_PARAM;
   }
   else if (new_node->value < in_root->value)
@@ -46,23 +55,71 @@ int avl_node_add(
     }
     else
     {
-      cout << "left " << new_node->value << " value " << in_root->value << endl;
-      in_root->lc_node = new_node;
+      in_root->lc_node          = new_node;
+      in_root->lc_node->pc_node = in_root;
     }
   }
   else
   {
     if (in_root->rc_node != NULL)
     {
-      cout << "recursivo right" << endl;
       avl_node_add(in_root->rc_node, new_node, new_root);
     }
     else
     {
-      cout << "right " << new_node->value << " value " << in_root->value << endl;
-      in_root->rc_node = new_node;
+      in_root->rc_node          = new_node;
+      in_root->rc_node->pc_node = in_root;
     }
   }
+  return AVL_SUCCESS;
+}
+
+int avl_rotate_left(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+){
+  struct avl_node* temp = in_root->rc_node;
+  if (in_root->pc_node != NULL){
+    if( in_root->pc_node->rc_node->value == in_root->value ){
+      in_root->pc_node->rc_node = temp;
+    } 
+    else{
+      in_root->pc_node->lc_node = temp;
+    }  
+  }
+  else{
+    temp->pc_node = NULL;
+  }
+  in_root->pc_node       = temp;
+  temp->lc_node->pc_node = in_root; 
+  in_root->rc_node       = temp->lc_node;
+  temp->lc_node          = in_root; 
+  new_root               = temp;
+  return AVL_SUCCESS;
+}
+
+int avl_rotate_right(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+){
+  struct avl_node* temp = in_root->lc_node; 
+  if (in_root->pc_node != NULL){
+    if( in_root->pc_node->rc_node->value == in_root->value ){
+      in_root->pc_node->rc_node = temp;
+    } 
+    else{
+      in_root->pc_node->lc_node = temp;
+    }  
+  }
+  else{
+    temp->pc_node = NULL;
+  }
+  temp->rc_node->pc_node = in_root;  
+  in_root->pc_node       = temp;          // temp = x
+  in_root->lc_node       = temp->rc_node; // in_root = y      
+  temp->rc_node          = in_root;       // temp->rc  = b
+     
+  new_root               = temp;
   return AVL_SUCCESS;
 }
 
@@ -86,14 +143,29 @@ int avl_search(
   }
   else if (in_root->value > num)
   {
-    return avl_search(in_root->lc_node, num, found_node);
+    if (in_root->lc_node == NULL)
+    {
+      return AVL_NOT_FOUND;
+    } 
+    else 
+    {
+      return avl_search(in_root->lc_node, num, found_node);
+    }
   }
   else if (in_root->value < num)
   {
-    return avl_search(in_root->rc_node, num, found_node);
+    if (in_root->rc_node == NULL)
+    {
+      return AVL_NOT_FOUND;
+    }
+    else 
+    {
+      return avl_search(in_root->rc_node, num, found_node);
+    }
   }
   else
   {
+    cout << "NULL" << " " << endl;
     *found_node = NULL;
     return AVL_NOT_FOUND;
   } 
