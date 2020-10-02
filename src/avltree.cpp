@@ -222,3 +222,51 @@ int avl_print(
   avl_print_node("", in_root, false);
   return AVL_SUCCESS;
 }
+
+/*
+Funcion balance
+*/
+
+int avl_balance(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+){
+  // Caso no valido
+  int altura;
+  if(in_root == NULL){
+    return AVL_NOT_FOUND;
+  }
+
+  altura = in_root->height;
+
+  // Caso en que la altura este bien
+  if (altura > -1 && altura < 1){
+    return AVL_SUCCESS;
+  }
+
+  // Altura positiva
+  elif (altura > 1){
+    if (in_root->value < in_root->lc node->value){
+      avl_rotate_right(in_root, new_root);
+    }
+
+    else{
+      avl_rotate_left(in_root, new_root);
+      avl_rotate_right(in_root, new_root);
+    }
+    return AVL_SUCCESS;
+  }
+  
+  // Altura positiva
+  else{
+    if (in_root->value > in_root->rc node->value){
+      avl_rotate_left(in_root, new_root);
+    }
+
+    else{
+      avl_rotate_right(in_root, new_root);
+      avl_rotate_left(in_root, new_root);
+    }
+    return AVL_SUCCESS;
+  }
+}
