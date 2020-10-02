@@ -245,8 +245,8 @@ int avl_balance(
   }
 
   // Altura positiva
-  elif (altura > 1){
-    if (in_root->value < in_root->lc node->value){
+  else if (altura > 1){
+    if (in_root->value < in_root->lc_node->value){
       avl_rotate_right(in_root, new_root);
     }
 
@@ -259,7 +259,7 @@ int avl_balance(
   
   // Altura positiva
   else{
-    if (in_root->value > in_root->rc node->value){
+    if (in_root->value > in_root->rc_node->value){
       avl_rotate_left(in_root, new_root);
     }
 
