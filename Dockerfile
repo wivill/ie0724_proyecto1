@@ -52,4 +52,4 @@ WORKDIR /usr/bin/
 # Se copia el ejecutable de la imagen builder
 COPY --from=builder /app/build/test/test  /usr/bin/run_unittest 
 
-CMD [ "./run_unittest " ]
+CMD [ "./run_unittest" ]
