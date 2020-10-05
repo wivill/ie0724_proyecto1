@@ -12,7 +12,8 @@ LABEL email="joselp1695@gmail.com"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Instalación de paquetes
+# Instalación de paquetes, se omiten la instalación de paquetes
+# recomendados y se elimina la cache de apt
 RUN apt update && apt install -y  --no-install-recommends  \
         build-essential \
         make \
@@ -20,7 +21,7 @@ RUN apt update && apt install -y  --no-install-recommends  \
         libgtest-dev \
     && rm -rf /var/lib/apt/lists/*
 
-#Configuracion de gtest
+#Compilación de gtest y creación de enlaces simbolicos a las bibliotecas
 RUN cd /usr/src/gtest \
     && cmake CMakeLists.txt \
     && make \
@@ -32,8 +33,10 @@ RUN cd /usr/src/gtest \
 
 WORKDIR /app
 
+# Se copia el proyecto en /app
 COPY . /app
 
+# Se compila el proyecto usando cmake
 RUN mkdir build \
     && cd build \
     && cmake .. \
@@ -44,9 +47,9 @@ RUN mkdir build \
 ###########################################################################
 
 FROM ubuntu:20.04
+WORKDIR /usr/bin/
 
-WORKDIR /app
+# Se copia el ejecutable de la imagen builder
+COPY --from=builder /app/build/test/test  /usr/bin/run_unittest 
 
-COPY --from=builder /app/build/test/test /app 
-
-CMD [ "./test" ]
+CMD [ "./run_unittest" ]
