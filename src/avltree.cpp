@@ -14,6 +14,15 @@
 #include <string>
 #include <math.h>
 
+/*
+ * Funcion para calcular el maximo entre dos numeros
+ *  */
+ 
+ int max(int a, int b)  
+{  
+    return (a > b)? a : b;  
+}  
+
 int avl_create(
   list<float>    *in_number_list,
   avl_node       *new_root_node)
@@ -38,41 +47,26 @@ int free_avl_tree(
   delete(in_root);
 }
 
-int avl_node_add(
-  struct avl_node  *in_root,
-  struct avl_node  *new_node,
-  struct avl_node  *new_root
-  ){
-  if (new_root == NULL)
-  {
-    return AVL_INVALID_PARAM;
-  }
-  else if (new_node->value < in_root->value)
-  {
-    if (in_root->lc_node != NULL)
-    {
-      avl_node_add(in_root->lc_node, new_node, new_root);
-    }
-    else
-    {
-      in_root->lc_node          = new_node;
-      in_root->lc_node->pc_node = in_root;
-    }
-  }
-  else
-  {
-    if (in_root->rc_node != NULL)
-    {
-      avl_node_add(in_root->rc_node, new_node, new_root);
-    }
-    else
-    {
-      in_root->rc_node          = new_node;
-      in_root->rc_node->pc_node = in_root;
-    }
-  }
-  return AVL_SUCCESS;
-}
+
+/*
+ * Funcion que obtiene la altura de un nodo
+ * */
+
+int avl_get_height(
+  struct avl_node  *&root
+){
+	int altura;
+	
+	if (root == NULL){
+		altura = 0;
+	}
+	
+	else{
+		altura = root->height;
+		}
+	
+	return altura;
+	}
 
 int avl_rotate_left(
   struct avl_node  *&in_root,
@@ -122,6 +116,123 @@ int avl_rotate_right(
   new_root               = temp;
   return AVL_SUCCESS;
 }
+
+/*
+Funcion balance
+*/
+
+int avl_balance(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+){
+  // Caso no valido
+  int balance;
+  int altura_r;
+  int altura_l;
+  if(in_root == NULL){
+    return AVL_NOT_FOUND;
+  }
+  // Altura nodo izquierdo
+  
+  altura_l = avl_get_height(in_root->lc_node);
+  //Altura nodo derecho
+  altura_r = avl_get_height(in_root->rc_node);
+  
+  //Se obtiene el balance
+  balance = altura_l - altura_r;
+  cout << "Altura = " << balance << endl;
+
+  // Caso en que la altura este bien
+  if (balance >= -1 && balance <= 1){
+	  cout << "Altura bien" << endl;	
+    return AVL_SUCCESS;
+  }
+
+  // Altura positiva
+  else if (balance > 1){
+	  cout << "Altura mayor a 1 "<< endl;
+	  if (in_root->value < in_root->lc_node->value){
+		  cout << "Rotando derecha mayor 1" << endl;
+		  avl_rotate_right(in_root, in_root);
+	  }
+	  
+	  else{
+		  cout << "Rotando izquierda mayor 1" << endl;
+		  avl_rotate_left(in_root->lc_node, in_root->lc_node);
+		  cout << "Rotando izquierda-derecha mayor 1" << endl;
+		  avl_rotate_right(in_root, in_root);
+	  }
+	  return AVL_SUCCESS;
+  }
+  
+  // Altura negativa
+  else{
+	cout << "Altura menor a 1 " << in_root->rc_node->value << endl;
+    if (in_root->value > in_root->rc_node->value){
+		cout << "Rotando izquierda menor 1" << endl;
+		avl_rotate_left(in_root, new_root);
+    }
+
+    else{
+		cout << "Doble rotacion derecha" << endl;
+		avl_rotate_right(in_root->rc_node, in_root->rc_node);
+		cout << "Rotando derecha-izquierda menor 1" << endl;
+		avl_rotate_left(in_root, in_root);
+    }
+    return AVL_SUCCESS;
+  }
+}
+
+int avl_node_add(
+  struct avl_node  *in_root,
+  struct avl_node  *new_node,
+  struct avl_node  *new_root
+  ){
+	  
+	  int alt_r;
+	  int alt_l;
+  if (new_root == NULL)
+  {
+    return AVL_INVALID_PARAM;
+  }
+  else if (new_node->value < in_root->value)
+  {
+    if (in_root->lc_node != NULL)
+    {
+      avl_node_add(in_root->lc_node, new_node, new_root);
+    }
+    else
+    {
+      in_root->lc_node          = new_node;
+      in_root->lc_node->pc_node = in_root;
+      in_root->lc_node->height = 1;
+      alt_r = avl_get_height(in_root->rc_node);
+      alt_l = avl_get_height(in_root->lc_node);
+      in_root->height = 1 + max(alt_r, alt_l);
+      
+    }
+  }
+  else
+  {
+    if (in_root->rc_node != NULL)
+    {
+      avl_node_add(in_root->rc_node, new_node, new_root);
+    }
+    else
+    {
+      in_root->rc_node          = new_node;
+      in_root->rc_node->pc_node = in_root;
+      in_root->rc_node->height = 1;
+      alt_r = avl_get_height(in_root->rc_node);
+      alt_l = avl_get_height(in_root->lc_node);
+      in_root->height = 1 + max(alt_r, alt_l);
+    }
+  }
+  avl_balance(in_root, in_root);
+  return AVL_SUCCESS;
+}
+
+
 
 
 int avl_node_remove(
@@ -267,52 +378,4 @@ int avl_print(
 {
   avl_print_node("", in_root, false);
   return AVL_SUCCESS;
-}
-
-/*
-Funcion balance
-*/
-
-int avl_balance(
-  struct avl_node  *&in_root,
-  struct avl_node  *&new_root
-){
-  // Caso no valido
-  int altura;
-  if(in_root == NULL){
-    return AVL_NOT_FOUND;
-  }
-
-  altura = in_root->height;
-
-  // Caso en que la altura este bien
-  if (altura > -1 && altura < 1){
-    return AVL_SUCCESS;
-  }
-
-  // Altura positiva
-  else if (altura > 1){
-    if (in_root->value < in_root->lc_node->value){
-      avl_rotate_right(in_root, new_root);
-    }
-
-    else{
-      avl_rotate_left(in_root, new_root);
-      avl_rotate_right(in_root, new_root);
-    }
-    return AVL_SUCCESS;
-  }
-  
-  // Altura positiva
-  else{
-    if (in_root->value > in_root->rc_node->value){
-      avl_rotate_left(in_root, new_root);
-    }
-
-    else{
-      avl_rotate_right(in_root, new_root);
-      avl_rotate_left(in_root, new_root);
-    }
-    return AVL_SUCCESS;
-  }
 }
