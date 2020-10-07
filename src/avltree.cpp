@@ -205,7 +205,19 @@ int avl_node_add(
     {
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
-      in_root->lc_node->height = 1;
+      in_root->lc_node->height = 0;
+      // Esto es lo que intentaba hacer para asignar las alturas de los nodos de una vez
+       if (in_root->rc_node == NULL)
+      {
+        in_root->height = - 1;
+      }
+      else 
+      {
+        in_root->height = - in_root->rc_node->height;
+      }
+
+
+
       alt_r = avl_get_height(in_root->rc_node);
       alt_l = avl_get_height(in_root->lc_node);
       in_root->height = 1 + max(alt_r, alt_l);
@@ -222,7 +234,7 @@ int avl_node_add(
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      in_root->rc_node->height = 1;
+      in_root->rc_node->height = 0;
       alt_r = avl_get_height(in_root->rc_node);
       alt_l = avl_get_height(in_root->lc_node);
       in_root->height = 1 + max(alt_r, alt_l);

@@ -14,46 +14,6 @@
 
 using namespace std;
 
-TEST(TestName, insert_element){
-    
-    
-    list<float> listaGanadora;
-    listaGanadora.push_front(18.5);
-    listaGanadora.push_front(13.99);
-    listaGanadora.push_front(2.5);
-    listaGanadora.push_front(16.0);
-    listaGanadora.push_front(55.2);
-    listaGanadora.push_front(42.69);
-    listaGanadora.push_front(0.5);
-
-
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
-
-    avl_create(&listaGanadora, nombre);
-    avl_print(nombre);
-   
-
-    struct avl_node* min_node;
-    avl_min_get(nombre, &min_node);
-    cout << min_node->value << " MIN"<< endl;
-    
-    struct avl_node* max_node;
-    avl_max_get(nombre, &max_node);
-    cout << max_node->value << " MAX"<< endl;
-    
-    struct avl_node* search_node;
-    avl_search(nombre, 11, &search_node);
-    cout << "search "<< search_node->value << endl;
-
-    struct avl_node* new_root;
-    avl_rotate_left(search_node,new_root);
-    avl_print(new_root);
-
-    cout << "sdfsdf" << endl;
-    free_avl_tree(nombre);
-
-}
-
 /*
 Test positivo para avl_create
 */
@@ -425,31 +385,6 @@ TEST(avl_node_remove, positive2){
 
     ASSERT_EQ(status, AVL_SUCCESS);
 }
-
-
-/*
-Test positivo para avl_balance
-*/
-
-// TEST(avl_balance, positive){
-//     int status;
-//     list<float> listaGanadora;
-//     listaGanadora.push_front(18.5);
-//     listaGanadora.push_front(13.99);
-//     listaGanadora.push_front(2.5);
-//     listaGanadora.push_front(16.0);
-//     listaGanadora.push_front(55.2);
-//     listaGanadora.push_front(42.69);
-//     listaGanadora.push_front(0.5);
-
-
-//     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
-
-//     avl_create(&listaGanadora, nombre);
-//     struct avl_node* busq;
-//     status = avl_search(nombre, 18.5, &busq);
-//     ASSERT_EQ(status, AVL_SUCCESS);
-// }
 
 int main(int argc, char const **argv)
 {
