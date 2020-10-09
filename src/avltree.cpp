@@ -213,14 +213,17 @@ int avl_node_add(
       }
       else 
       {
-        in_root->height = - in_root->rc_node->height;
+        in_root->height = - in_root->rc_node->height; // Creo que no deberìa llevar el negativo
       }
+      
+      //
+      
+      //Creo que esto debe ir comentado porque lc_node = NULL (originalmente estaba sin comentar)
 
-
-
-      alt_r = avl_get_height(in_root->rc_node);
+      /*alt_r = avl_get_height(in_root->rc_node);
       alt_l = avl_get_height(in_root->lc_node);
       in_root->height = 1 + max(alt_r, alt_l);
+      */
       
     }
   }
@@ -235,9 +238,24 @@ int avl_node_add(
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
       in_root->rc_node->height = 0;
+      
+      //Creo que esto debe ir comentado porque rc_node = NULL (originalmente estaba sin comentar)
+      /*
       alt_r = avl_get_height(in_root->rc_node);
       alt_l = avl_get_height(in_root->lc_node);
       in_root->height = 1 + max(alt_r, alt_l);
+      */
+      
+      //Creo que este còdigo se debe incluir (originalmente no estaba)
+       if (in_root->lc_node == NULL)
+      {
+        in_root->height = 0; //verificar, me parece que es la notacion que usted estaba utilizando
+      }
+      else 
+      {
+        in_root->height = in_root->lc_node->height;
+      }
+      //Fin codigo incluido
     }
   }
   avl_balance(in_root, in_root);
