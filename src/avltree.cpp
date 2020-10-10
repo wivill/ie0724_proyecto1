@@ -18,14 +18,15 @@
  * Funcion para calcular el maximo entre dos numeros
  *  */
  
- int max(int a, int b)  
+int max(int a, int b)  
 {  
     return (a > b)? a : b;  
 }  
 
 int avl_create(
   list<float>    *in_number_list,
-  avl_node       *new_root_node)
+  avl_node       *new_root_node
+  )
 {
   for (auto &&value : *in_number_list)
   {
@@ -53,20 +54,16 @@ int free_avl_tree(
  * */
 
 int avl_get_height(
-  struct avl_node  *&root
+  struct avl_node  *&in_root
 ){
-	int altura;
-	
-	if (root == NULL){
-		altura = 0;
-	}
-	
-	else{
-		altura = root->height;
-		}
-	
-	return altura;
-	}
+  if (in_root == NULL){
+    return AVL_SUCCESS;
+  }
+  else
+  {
+    return in_root->height;
+  }
+}
 
 int avl_rotate_left(
   struct avl_node  *&in_root,
@@ -188,9 +185,10 @@ int avl_node_add(
   struct avl_node  *new_node,
   struct avl_node  *new_root
   ){
-	  
-	  int alt_r;
-	  int alt_l;
+
+	  // int alt_r;
+	  // int alt_l;
+  
   if (new_root == NULL)
   {
     return AVL_INVALID_PARAM;
@@ -205,15 +203,15 @@ int avl_node_add(
     {
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
-      in_root->lc_node->height = 0;
+      in_root->lc_node->height  = 1;
       // Esto es lo que intentaba hacer para asignar las alturas de los nodos de una vez
        if (in_root->rc_node == NULL)
       {
-        in_root->height = - 1;
+        in_root->height = -1;
       }
       else 
       {
-        in_root->height = - in_root->rc_node->height; // Creo que no deberìa llevar el negativo
+        in_root->height = 0; 
       }
       
       //
@@ -237,7 +235,7 @@ int avl_node_add(
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      in_root->rc_node->height = 0;
+      in_root->rc_node->height  = 0;
       
       //Creo que esto debe ir comentado porque rc_node = NULL (originalmente estaba sin comentar)
       /*
@@ -247,13 +245,13 @@ int avl_node_add(
       */
       
       //Creo que este còdigo se debe incluir (originalmente no estaba)
-       if (in_root->lc_node == NULL)
+      if (in_root->lc_node == NULL)
       {
-        in_root->height = 0; //verificar, me parece que es la notacion que usted estaba utilizando
+        in_root->height = 1; //verificar, me parece que es la notacion que usted estaba utilizando
       }
       else 
       {
-        in_root->height = in_root->lc_node->height;
+        in_root->height = 0;
       }
       //Fin codigo incluido
     }

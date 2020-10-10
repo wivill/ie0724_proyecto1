@@ -250,7 +250,7 @@ TEST(free_avl_tree, positive){
 Test positivo balance
 */
 
-TEST(avl_balance, positive){
+TEST(avl_balance, positive_right){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -263,7 +263,7 @@ TEST(avl_balance, positive){
 
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
 
-    avl_create(&listaGanadora, nombre);
+    status = avl_create(&listaGanadora, nombre);
     
     cout << "Imprimiendo árbol" << endl;
     avl_print(nombre);
@@ -271,6 +271,26 @@ TEST(avl_balance, positive){
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
+TEST(avl_balance, positive_left){
+    int status;
+    list<float> listaGanadora;
+    listaGanadora.push_front(18.5);
+    listaGanadora.push_front(8);
+    listaGanadora.push_front(7);
+    listaGanadora.push_front(6);
+    listaGanadora.push_front(5);
+    listaGanadora.push_front(4);
+    listaGanadora.push_front(3);
+
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+
+    status = avl_create(&listaGanadora, nombre);
+    
+    cout << "Imprimiendo árbol" << endl;
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_SUCCESS);    
+}
 
 /*
 Test positivo max_get

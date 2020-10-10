@@ -49,6 +49,21 @@ struct avl_node {
 
 
 /**
+ * max
+ * Retorna el valor mayor de entre los argumentos recibidos.
+ *
+ * @param [in]  a  primer argumento a comparar
+ * @param [in]  b  segundo argumnento a comparar
+ *
+ * @returns     a  un entero mayor que b
+ * @returns     b  un entero mayor que a
+ *
+ */
+int max(
+  int a,
+  int b);
+
+/**
  * avl_create
  * Toma una lista de números flotantes, y crea la estructura de datos deseada.
  * Retorna el nodo raíz del árbol.
@@ -63,7 +78,31 @@ int avl_create(
   list<float>     *in_number_list,
   struct avl_node *new_root_node);
 
+
+/**
+ * free_avl_tree
+ * Tome un árbol y limpia la memoria asignada de forma recursiva.
+ *
+ * @param [in]  in_root es el puntero a la raíz del árbol.
+ *
+ * @returns error_code         un código de error indicando el éxito o error
+ *                             de la función
+ */
 int free_avl_tree(
+  struct avl_node  *&in_root
+);
+
+/**
+ * avl_get_height
+ * Tome un nodo y retorna la altura. Si es NULL retorna 0
+ *
+ * @param [in]  in_root es el puntero a la raíz del árbol.
+ *
+ * @returns error_code         un código de error indicando el éxito o error
+ *                             de la función
+ * @returns in_root->height    altura del nodo.
+ */
+int avl_get_height(
   struct avl_node  *&in_root
 );
 
