@@ -107,6 +107,20 @@ int avl_get_height(
 );
 
 /**
+ * avl_get_balance
+ * Retorna la altura del nodo actual respecto a la altura de sus hijos.
+ *
+ * @param [in]  in_root es el puntero a la raíz del árbol.
+ *
+ * @returns error_code         un código de error indicando el éxito o error
+ *                             de la función
+ * @returns height             Resta de las alturas de los nodos hijo derecho e izquierdo.
+ */
+int avl_get_balance(
+  struct avl_node  *&in_root
+);
+
+/**
  * avl_node_add
  * Toma un nodo y lo inserta en la estructura de datos.
  * Una nueva raíz puede ser obtenida.

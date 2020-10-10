@@ -14,14 +14,21 @@
 #include <string>
 #include <math.h>
 
+
 /*
  * Funcion para calcular el maximo entre dos numeros
- *  */
+ *  
+ * */
  
 int max(int a, int b)  
 {  
     return (a > b)? a : b;  
 }  
+
+
+/*
+ *
+ * */
 
 int avl_create(
   list<float>    *in_number_list,
@@ -36,6 +43,11 @@ int avl_create(
   
   return AVL_SUCCESS;
 }
+
+
+/*
+ *
+ * */
 
 int free_avl_tree(
   struct avl_node  *&in_root
@@ -65,6 +77,28 @@ int avl_get_height(
   }
 }
 
+
+/*
+ *
+ * */
+
+int avl_get_balance(
+  struct avl_node  *&in_root
+){
+  if (in_root == NULL){
+    return AVL_SUCCESS;
+  }
+  else
+  {
+    return avl_get_height(in_root->lc_node) - avl_get_height(in_root->rc_node);
+  }
+}
+
+
+/*
+ *
+ * */
+
 int avl_rotate_left(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
@@ -88,6 +122,11 @@ int avl_rotate_left(
   new_root               = temp;
   return AVL_SUCCESS;
 }
+
+
+/*
+ *
+ * */
 
 int avl_rotate_right(
   struct avl_node  *&in_root,
@@ -114,80 +153,64 @@ int avl_rotate_right(
   return AVL_SUCCESS;
 }
 
+
 /*
-Funcion balance
-*/
+ *Funcion balance
+ * */
 
 int avl_balance(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
 ){
   // Caso no valido
-  int balance;
-  int altura_r;
-  int altura_l;
   if(in_root == NULL){
     return AVL_NOT_FOUND;
   }
-  // Altura nodo izquierdo
   
-  altura_l = avl_get_height(in_root->lc_node);
-  //Altura nodo derecho
-  altura_r = avl_get_height(in_root->rc_node);
-  
+  // Actualiza altura.
+  in_root->height = 1 + max(avl_get_height(in_root->lc_node),
+                            avl_get_height(in_root->rc_node));
+
   //Se obtiene el balance
-  balance = altura_l - altura_r;
+  int balance = avl_get_balance(in_root)
   cout << "Altura = " << balance << endl;
 
-  // Caso en que la altura este bien
-  if (balance >= -1 && balance <= 1){
-	  cout << "Altura bien" << endl;	
-    return AVL_SUCCESS;
+  if (balance > 1 && in_root->value < in_root->lc_node->value)
+  {
+    avl_rotate_right(in_root, new_root);
   }
 
-  // Altura positiva
-  else if (balance > 1){
-	  cout << "Altura mayor a 1 "<< endl;
-	  if (in_root->value < in_root->lc_node->value){
-		  cout << "Rotando derecha mayor 1" << endl;
-		  avl_rotate_right(in_root, in_root);
-	  }
-	  
-	  else{
-		  cout << "Rotando izquierda mayor 1" << endl;
-		  avl_rotate_left(in_root->lc_node, in_root->lc_node);
-		  cout << "Rotando izquierda-derecha mayor 1" << endl;
-		  avl_rotate_right(in_root, in_root);
-	  }
-	  return AVL_SUCCESS;
+  if (balance < -1 && in_root->value > in_root->rc_node->value)
+  {
+    avl_rotate_left(in_root, new_root);
+  }
+
+  if (balance > 1 && in_root->value > in_root->lc_node->value)
+  {
+    avl_rotate_left(in_root->lc_node, new_root);
+    avl_rotate_right(in_root, new_root);
+  }
+
+  if (balance > 1 && in_root->value < in_root->lc_node->value)
+  {
+    avl_rotate_right(in_root->rc_node, new_root);
+    avl_rotate_left(in_root, new_root);
   }
   
-  // Altura negativa
-  else{
-	cout << "Altura menor a 1 " << in_root->rc_node->value << endl;
-    if (in_root->value > in_root->rc_node->value){
-		cout << "Rotando izquierda menor 1" << endl;
-		avl_rotate_left(in_root, new_root);
-    }
+  return AVL_SUCCESS;
 
-    else{
-		cout << "Doble rotacion derecha" << endl;
-		avl_rotate_right(in_root->rc_node, in_root->rc_node);
-		cout << "Rotando derecha-izquierda menor 1" << endl;
-		avl_rotate_left(in_root, in_root);
-    }
-    return AVL_SUCCESS;
-  }
 }
+
+
+/*
+ *
+ * */
 
 int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
   struct avl_node  *new_root
   ){
-
-	  // int alt_r;
-	  // int alt_l;
   
   if (new_root == NULL)
   {
@@ -204,28 +227,11 @@ int avl_node_add(
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
       in_root->lc_node->height  = 1;
-      // Esto es lo que intentaba hacer para asignar las alturas de los nodos de una vez
-       if (in_root->rc_node == NULL)
-      {
-        in_root->height = -1;
-      }
-      else 
-      {
-        in_root->height = 0; 
-      }
-      
-      //
-      
-      //Creo que esto debe ir comentado porque lc_node = NULL (originalmente estaba sin comentar)
 
-      /*alt_r = avl_get_height(in_root->rc_node);
-      alt_l = avl_get_height(in_root->lc_node);
-      in_root->height = 1 + max(alt_r, alt_l);
-      */
-      
+      avl_balance(in_root, in_root->lc_node);
     }
   }
-  else
+  else if (new_node->value > in_root->value)
   {
     if (in_root->rc_node != NULL)
     {
@@ -235,33 +241,23 @@ int avl_node_add(
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      in_root->rc_node->height  = 0;
-      
-      //Creo que esto debe ir comentado porque rc_node = NULL (originalmente estaba sin comentar)
-      /*
-      alt_r = avl_get_height(in_root->rc_node);
-      alt_l = avl_get_height(in_root->lc_node);
-      in_root->height = 1 + max(alt_r, alt_l);
-      */
-      
-      //Creo que este còdigo se debe incluir (originalmente no estaba)
-      if (in_root->lc_node == NULL)
-      {
-        in_root->height = 1; //verificar, me parece que es la notacion que usted estaba utilizando
-      }
-      else 
-      {
-        in_root->height = 0;
-      }
-      //Fin codigo incluido
+      in_root->rc_node->height  = 1;
+
+      avl_balance(in_root,in_root->rc_node);
     }
   }
-  avl_balance(in_root, in_root);
+  else
+  {
+    return AVL_INVALID_PARAM; // No agregar nodos con valores iguales.
+  }
+
   return AVL_SUCCESS;
 }
 
 
-
+/*
+ *
+ * */
 
 int avl_node_remove(
   struct avl_node *&in_root,
@@ -300,6 +296,11 @@ int avl_node_remove(
 
   return AVL_SUCCESS;
 }
+
+
+/*
+ *
+ * */
 
 int avl_search(
   struct avl_node *in_root,
@@ -342,6 +343,11 @@ int avl_search(
 
 }
 
+
+/*
+ *
+ * */
+
 int avl_max_get(
   struct avl_node *in_root,
   struct avl_node **max_node)
@@ -361,6 +367,11 @@ int avl_max_get(
     return avl_max_get(in_root->rc_node, max_node);
   }
 }
+
+
+/*
+ *
+ * */
 
 int avl_min_get(
   struct avl_node *in_root,
@@ -382,6 +393,11 @@ int avl_min_get(
   }
 }
 
+
+/*
+ *
+ * */
+
 int avl_print_node(
   const string&     prefix,
   struct avl_node  *in_root,
@@ -400,6 +416,11 @@ int avl_print_node(
   
   return AVL_SUCCESS;
 }
+
+
+/*
+ *
+ * */
 
 int avl_print(
   struct avl_node  *in_root)
