@@ -21,23 +21,24 @@ Test positivo para avl_create
 TEST(avl_create, positive){
     int status;
     list<float> listaGanadora;
-    listaGanadora.push_front(18.5);
-    listaGanadora.push_front(13.99);
-    listaGanadora.push_front(2.5);
-    listaGanadora.push_front(16.0);
-    listaGanadora.push_front(55.2);
-    listaGanadora.push_front(42.69);
-    listaGanadora.push_front(0.5);
+    listaGanadora.push_front(17);
+    listaGanadora.push_front(16);
+    listaGanadora.push_front(15);
+    listaGanadora.push_front(14);
+    listaGanadora.push_front(13);
+    listaGanadora.push_front(12);
+    //listaGanadora.push_front(0.5);
 
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
+    struct avl_node *nombre = new avl_node{NULL, NULL, NULL, 11, 1};
     status = avl_create(&listaGanadora, nombre);
 
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-/*
-Test positivo para avl_create
-*/
+
+///*
+//Test positivo para avl_create
+//*/
 
 TEST(avl_print, positive){
     int status;
@@ -78,10 +79,8 @@ TEST(avl_node_add, negative){
     avl_create(&listaGanadora, nombre);
     avl_print(nombre);
 
-    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
-    status = avl_node_add(nombre, nuevo_nodo, NULL);
-    avl_print(nombre);
-
+    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 11, 1};
+    status = avl_node_add(nombre, nuevo_nodo, nuevo_nodo);
     ASSERT_EQ(status, AVL_INVALID_PARAM);
 }
 
@@ -130,17 +129,19 @@ TEST(avl_rotate_left, positive){
     avl_create(&listaGanadora, nombre);
     cout << "Árbol original" << endl;
     avl_print(nombre);
+    
+    struct avl_node* new_root;
     cout << "Rotando izquierda" << endl;
-    status = avl_rotate_left(nombre, nombre);
+    status = avl_rotate_left(nombre, new_root);
     avl_print(nombre);
 
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-/*
-Test positivo para avl_rotate_right.
-*/
 
+///*
+//Test positivo para avl_rotate_right.
+//*/
 TEST(avl_rotate_right, positive){
 
     int status;
@@ -157,8 +158,10 @@ TEST(avl_rotate_right, positive){
     avl_create(&listaGanadora, nombre);
     cout << "Árbol original" << endl;
     avl_print(nombre);
+    
+    struct avl_node* new_root;
     cout << "Rotando derecha" << endl;
-    status = avl_rotate_right(nombre, nombre);
+    status = avl_rotate_right(nombre, new_root);
     avl_print(nombre);
 
     ASSERT_EQ(status, AVL_SUCCESS);
@@ -180,16 +183,19 @@ TEST(avl_search, positive){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
+
     avl_create(&listaGanadora, nombre);
+    cout << "Imprimiendo árbol original" << endl;
     avl_print(nombre);
 
-    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
-    status = avl_node_add(nombre, nuevo_nodo, NULL);
-    avl_print(nombre);
-
-    ASSERT_EQ(status, AVL_INVALID_PARAM);
+    struct avl_node* busq;
+    status = avl_search(nombre, 55.2, &busq);
+    cout << "Imprimiendo nodo del search" << endl;
+    avl_print(busq);
+    ASSERT_EQ(status, AVL_SUCCESS);  
 }
+
 
 /*
 Test negativo para avl_search, con un parámetro inválido para valor buscado
@@ -246,7 +252,8 @@ TEST(free_avl_tree, positive){
 /*
 Test positivo balance
 */
-TEST(avl_balance, positive_right){
+
+TEST(avl_balance, positive){
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -259,7 +266,11 @@ TEST(avl_balance, positive_right){
 
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
 
-    status = avl_create(&listaGanadora, nombre);
+    avl_create(&listaGanadora, nombre);
+
+    struct avl_node* temp;
+    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 19};
+    status = avl_balance(nombre, nuevo_nodo, temp);
     
     cout << "Imprimiendo árbol" << endl;
     avl_print(nombre);
@@ -267,27 +278,6 @@ TEST(avl_balance, positive_right){
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
-
-TEST(avl_balance, positive_left){
-    int status;
-    list<float> listaGanadora;
-    listaGanadora.push_front(18.5);
-    listaGanadora.push_front(8);
-    listaGanadora.push_front(7);
-    listaGanadora.push_front(6);
-    listaGanadora.push_front(5);
-    listaGanadora.push_front(4);
-    listaGanadora.push_front(3);
-
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
-
-    status = avl_create(&listaGanadora, nombre);
-    
-    cout << "Imprimiendo árbol" << endl;
-    avl_print(nombre);
-
-    ASSERT_EQ(status, AVL_SUCCESS);    
-}
 
 /*
 Test positivo max_get

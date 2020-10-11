@@ -35,10 +35,14 @@ int avl_create(
   avl_node       *new_root_node
   )
 {
+  
+  struct avl_node* new_root = new_root_node; //sirve para inicializar
   for (auto &&value : *in_number_list)
   {
-    avl_node* new_node =  new avl_node{NULL, NULL, NULL, value};
-    avl_node_add(new_root_node, new_node, new_root_node);
+    avl_node* new_node =  new avl_node{NULL, NULL, NULL, value, 1};
+    avl_node_add(new_root_node, new_node, new_root);
+    // avl_balance(new_root_node, new_node, new_root);
+    new_root_node = new_root;
   }
   
   return AVL_SUCCESS;
@@ -103,24 +107,27 @@ int avl_rotate_left(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
 ){
-  struct avl_node* temp = in_root->rc_node;
-  if (in_root->pc_node != NULL){
-    if( in_root->pc_node->rc_node->value == in_root->value ){
-      in_root->pc_node->rc_node = temp;
-    } 
-    else{
-      in_root->pc_node->lc_node = temp;
-    }  
-  }
-  else{
-    temp->pc_node = NULL;
-  }
-  in_root->pc_node       = temp;
-  temp->lc_node->pc_node = in_root; 
-  in_root->rc_node       = temp->lc_node;
-  temp->lc_node          = in_root; 
-  new_root               = temp;
-  return AVL_SUCCESS;
+	// Verificacion de parametro valido
+	if (in_root == NULL){
+		return AVL_INVALID_PARAM;
+	}
+	
+	if (in_root == new_root){
+		return AVL_INVALID_PARAM;
+	}
+	
+  new_root = in_root->rc_node;
+	struct avl_node* temp = new_root->lc_node;
+	
+	//Rotacion
+	new_root->lc_node = in_root;
+	in_root->rc_node = temp;
+	
+	//Alturas
+	in_root->height = max(avl_get_height(in_root->rc_node), avl_get_height(in_root->lc_node)) + 1;
+	new_root->height = max(avl_get_height(new_root->rc_node), avl_get_height(new_root->lc_node)) + 1;
+	
+	return AVL_SUCCESS;
 }
 
 
@@ -132,25 +139,27 @@ int avl_rotate_right(
   struct avl_node  *&in_root,
   struct avl_node  *&new_root
 ){
-  struct avl_node* temp = in_root->lc_node; 
-  if (in_root->pc_node != NULL){
-    if( in_root->pc_node->rc_node->value == in_root->value ){
-      in_root->pc_node->rc_node = temp;
-    } 
-    else{
-      in_root->pc_node->lc_node = temp;
-    }  
-  }
-  else{
-    temp->pc_node = NULL;
-  }
-  temp->rc_node->pc_node = in_root;  
-  in_root->pc_node       = temp;          // temp = x
-  in_root->lc_node       = temp->rc_node; // in_root = y      
-  temp->rc_node          = in_root;       // temp->rc  = b
-     
-  new_root               = temp;
-  return AVL_SUCCESS;
+	// Verificacion de parametro valido
+	if (in_root == NULL){
+		return AVL_INVALID_PARAM;
+	}
+	
+	if (in_root == new_root){
+		return AVL_INVALID_PARAM;
+	}
+	
+	new_root = in_root->lc_node;
+  struct avl_node* temp = new_root->rc_node;
+	
+  // Rotación
+	new_root->rc_node = in_root;
+	in_root->lc_node = temp;
+	
+	//Alturas
+	in_root->height = max(avl_get_height(in_root->rc_node), avl_get_height(in_root->lc_node)) + 1;
+	new_root->height = max(avl_get_height(new_root->rc_node), avl_get_height(new_root->lc_node)) + 1;
+	
+	return AVL_SUCCESS;
 }
 
 
@@ -160,6 +169,7 @@ int avl_rotate_right(
 
 int avl_balance(
   struct avl_node  *&in_root,
+  struct avl_node  *&new_node,
   struct avl_node  *&new_root
 ){
   // Caso no valido
@@ -173,28 +183,33 @@ int avl_balance(
 
   //Se obtiene el balance
   int balance = avl_get_balance(in_root);
-  cout << "Altura = " << balance << endl;
 
-  if (balance > 1 && in_root->value < in_root->lc_node->value)
+  if (balance > 1 && new_node->value < in_root->lc_node->value)
   {
     avl_rotate_right(in_root, new_root);
+    in_root = new_root;
   }
 
-  if (balance < -1 && in_root->value > in_root->rc_node->value)
+  if (balance < -1 && new_node->value > in_root->rc_node->value)
   {
     avl_rotate_left(in_root, new_root);
+    in_root = new_root;
   }
 
-  if (balance > 1 && in_root->value > in_root->lc_node->value)
+  if (balance > 1 && new_node->value > in_root->lc_node->value)
   {
     avl_rotate_left(in_root->lc_node, new_root);
+    in_root->lc_node = new_root;
     avl_rotate_right(in_root, new_root);
+    in_root = new_root;
   }
 
-  if (balance > 1 && in_root->value < in_root->lc_node->value)
+  if (balance < -1 && new_node->value < in_root->rc_node->value)
   {
     avl_rotate_right(in_root->rc_node, new_root);
+    in_root->rc_node = new_root;
     avl_rotate_left(in_root, new_root);
+    in_root = new_root;
   }
   
   return AVL_SUCCESS;
@@ -211,8 +226,7 @@ int avl_node_add(
   struct avl_node  *new_node,
   struct avl_node  *new_root
   ){
-  
-  if (new_root == NULL)
+  if (new_node == NULL)
   {
     return AVL_INVALID_PARAM;
   }
@@ -221,14 +235,13 @@ int avl_node_add(
     if (in_root->lc_node != NULL)
     {
       avl_node_add(in_root->lc_node, new_node, new_root);
+      avl_balance(in_root->lc_node, new_node, new_root);
     }
     else
     {
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
-      in_root->lc_node->height  = 1;
-
-      avl_balance(in_root, in_root->lc_node);
+      avl_balance(in_root, new_node, new_root);
     }
   }
   else if (new_node->value > in_root->value)
@@ -236,21 +249,19 @@ int avl_node_add(
     if (in_root->rc_node != NULL)
     {
       avl_node_add(in_root->rc_node, new_node, new_root);
+      avl_balance(in_root->rc_node, new_node, new_root);
     }
     else
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      in_root->rc_node->height  = 1;
-
-      avl_balance(in_root,in_root->rc_node);
+      avl_balance(in_root, new_node, new_root);
     }
   }
   else
   {
     return AVL_INVALID_PARAM; // No agregar nodos con valores iguales.
   }
-
   return AVL_SUCCESS;
 }
 
