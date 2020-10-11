@@ -76,7 +76,8 @@ int max(
  */
 int avl_create(
   list<float>     *in_number_list,
-  struct avl_node *new_root_node);
+  struct avl_node *new_root_node,
+  struct avl_node *fin_root_node);
 
 
 /**
