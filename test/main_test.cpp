@@ -30,6 +30,7 @@ TEST(avl_create, positive){
     //listaGanadora.push_front(0.5);
 
     struct avl_node *nombre = new avl_node{NULL, NULL, NULL, 11, 1};
+    // struct avl_node *nombre;
     // struct avl_node *node_fin = new avl_node{NULL, NULL, NULL, 11, 1};
     status = avl_create(&listaGanadora, nombre);
     avl_print(nombre);

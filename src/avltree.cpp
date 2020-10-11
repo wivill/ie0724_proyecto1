@@ -41,7 +41,8 @@ int avl_create(
   {
     avl_node* new_node =  new avl_node{NULL, NULL, NULL, value, 1};
     avl_node_add(new_root_node, new_node, new_root);
-    new_root_node = new_root; //tentativo
+    // avl_balance(new_root_node, new_node, new_root);
+    new_root_node = new_root;
   }
   
   return AVL_SUCCESS;
@@ -72,29 +73,13 @@ int avl_get_height(
   struct avl_node  *&in_root
 ){
   if (in_root == NULL){
-    return 0;
+    return AVL_SUCCESS;
   }
   else
   {
     return in_root->height;
   }
 }
-
-
-int avl_upd_height(
-  struct avl_node  *&sheet_root
-){
-  int alt = 0;
-  if (sheet_root->pc_node == NULL){
-    return alt;
-  }
-  else
-  {
-	sheet_root->pc_node->height = max(avl_get_height(sheet_root->pc_node->lc_node), avl_get_height(sheet_root->pc_node->rc_node)) + 1;
-    avl_upd_height(sheet_root->pc_node);
-  }
-}
-
 
 
 /*
@@ -105,7 +90,7 @@ int avl_get_balance(
   struct avl_node  *&in_root
 ){
   if (in_root == NULL){
-    return 0;
+    return AVL_SUCCESS;
   }
   else
   {
@@ -193,41 +178,26 @@ int avl_balance(
   }
   
   // Actualiza altura.
-  cout << "Altura actual = " << in_root->height << endl;
   in_root->height = 1 + max(avl_get_height(in_root->lc_node),
                             avl_get_height(in_root->rc_node));
-  cout << "Altura actualizada = " << in_root->height << endl;
 
   //Se obtiene el balance
   int balance = avl_get_balance(in_root);
-  cout << "Balance = " << balance << endl;
 
-  cout << "value new node = " << new_node->value << endl;
-  if (in_root->rc_node != NULL)
-  {
-    cout << "value node->right = " << in_root->rc_node->value << endl;    
-  }
-  if (in_root->lc_node != NULL)
-  {
-    cout << "value node->left = " << in_root->lc_node->value << endl;    
-  }
   if (balance > 1 && new_node->value < in_root->lc_node->value)
   {
-    // struct avl_node* new_root;
     avl_rotate_right(in_root, new_root);
     in_root = new_root;
   }
 
   if (balance < -1 && new_node->value > in_root->rc_node->value)
   {
-    // struct avl_node* new_root;
     avl_rotate_left(in_root, new_root);
     in_root = new_root;
   }
 
   if (balance > 1 && new_node->value > in_root->lc_node->value)
   {
-    // struct avl_node* new_root;
     avl_rotate_left(in_root->lc_node, new_root);
     in_root->lc_node = new_root;
     avl_rotate_right(in_root, new_root);
@@ -236,7 +206,6 @@ int avl_balance(
 
   if (balance < -1 && new_node->value < in_root->rc_node->value)
   {
-    // struct avl_node* new_root;
     avl_rotate_right(in_root->rc_node, new_root);
     in_root->rc_node = new_root;
     avl_rotate_left(in_root, new_root);
@@ -293,7 +262,6 @@ int avl_node_add(
   {
     return AVL_INVALID_PARAM; // No agregar nodos con valores iguales.
   }
-
   return AVL_SUCCESS;
 }
 

@@ -122,6 +122,54 @@ int avl_get_balance(
 );
 
 /**
+ * avl_rotate_left
+ * Realiza una rotación hacia la izquierda en el AVL tree.
+ *
+ * @param [in]  in_root   es el nodo raíz original del árbol
+ * @param [out] new_root  es el puntero al nuevo nodo raíz del árbol
+ *
+ * @returns error_code    un código de error indicando el éxito o error
+ *                        de la función
+ */
+int avl_rotate_left(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+);
+
+/**
+ * avl_rotate_right
+ * Realiza una rotación hacia la derecha en el AVL tree.
+ *
+ * @param [in]  in_root   es el nodo raíz original del árbol
+ * @param [out] new_root  es el puntero al nuevo nodo raíz del árbol
+ *
+ * @returns error_code    un código de error indicando el éxito o error
+ *                        de la función
+ */
+int avl_rotate_right(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_root
+);
+
+/**
+ * avl_balance
+ * Realiza comparaciones y actualizaciones de altura para balancear
+ * el árbol.
+ *
+ * @param [in]  in_root   es el nodo raíz original del árbol
+ * @param [in]  new_node  es el nodo con el número flotante por insertar
+ * @param [out] new_root  es el puntero al nuevo nodo raíz del árbol
+ *
+ * @returns error_code    un código de error indicando el éxito o error
+ *                        de la función
+ */
+int avl_balance(
+  struct avl_node  *&in_root,
+  struct avl_node  *&new_node,
+  struct avl_node  *&new_root
+);
+
+/**
  * avl_node_add
  * Toma un nodo y lo inserta en la estructura de datos.
  * Una nueva raíz puede ser obtenida.
@@ -137,16 +185,6 @@ int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
   struct avl_node  *new_root
-);
-
-int avl_rotate_left(
-  struct avl_node  *&in_root,
-  struct avl_node  *&new_root
-);
-
-int avl_rotate_right(
-  struct avl_node  *&in_root,
-  struct avl_node  *&new_root
 );
 
 /**
@@ -215,7 +253,17 @@ int avl_min_get(
   struct avl_node *in_root,
   struct avl_node **min_node);
 
-
+/**
+ * avl_print_node
+ * Se obtiene el nodo que contenga el valor mínimo en todo el árbol.
+ *
+ * @param [in]  prefix  es el prefijo para poder acomodar e imprimir el árbol.
+ * @param [in]  in_root es el nodo raíz original del árbol
+ * @param [in]  isLeft  booleano para decidir si se está imprimiendo un nodo a la derecha o a la izquierda
+ *
+ * @returns error_code    un código de error indicando el éxito o error
+ *                        de la función
+ */
 int avl_print_node(
   const string&     prefix,
   struct avl_node  *in_root,
