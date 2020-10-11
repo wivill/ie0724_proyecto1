@@ -39,7 +39,7 @@ int avl_create(
   struct avl_node* new_root = new_root_node; //sirve para inicializar
   for (auto &&value : *in_number_list)
   {
-    avl_node* new_node =  new avl_node{NULL, NULL, NULL, value};
+    avl_node* new_node =  new avl_node{NULL, NULL, NULL, value, 1};
     avl_node_add(new_root_node, new_node, new_root);
     new_root_node = new_root; //tentativo
   }
@@ -193,13 +193,24 @@ int avl_balance(
   }
   
   // Actualiza altura.
+  cout << "Altura actual = " << in_root->height << endl;
   in_root->height = 1 + max(avl_get_height(in_root->lc_node),
                             avl_get_height(in_root->rc_node));
+  cout << "Altura actualizada = " << in_root->height << endl;
 
   //Se obtiene el balance
   int balance = avl_get_balance(in_root);
-  cout << "Altura = " << balance << endl;
+  cout << "Balance = " << balance << endl;
 
+  cout << "value new node = " << new_node->value << endl;
+  if (in_root->rc_node != NULL)
+  {
+    cout << "value node->right = " << in_root->rc_node->value << endl;    
+  }
+  if (in_root->lc_node != NULL)
+  {
+    cout << "value node->left = " << in_root->lc_node->value << endl;    
+  }
   if (balance > 1 && new_node->value < in_root->lc_node->value)
   {
     // struct avl_node* new_root;
@@ -255,14 +266,12 @@ int avl_node_add(
     if (in_root->lc_node != NULL)
     {
       avl_node_add(in_root->lc_node, new_node, new_root);
+      avl_balance(in_root->lc_node, new_node, new_root);
     }
     else
     {
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
-      in_root->lc_node->height  = 1;
-      // avl_upd_height(in_root->lc_node);
-      // avl_balance(in_root, new_root);
       avl_balance(in_root, new_node, new_root);
     }
   }
@@ -271,14 +280,12 @@ int avl_node_add(
     if (in_root->rc_node != NULL)
     {
       avl_node_add(in_root->rc_node, new_node, new_root);
+      avl_balance(in_root->rc_node, new_node, new_root);
     }
     else
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      in_root->rc_node->height  = 1;
-      // avl_upd_height(in_root->rc_node);
-      // avl_balance(in_root, new_root);
       avl_balance(in_root, new_node, new_root);
     }
   }
