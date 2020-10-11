@@ -28,4 +28,4 @@ clean:
 .PHONY: docs
 docs: make
 	@cd build && make docs
-	@cd docs_sphinx && make html
+	@cd doc && make html
