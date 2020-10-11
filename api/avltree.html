@@ -291,6 +291,55 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt id="_CPPv415avl_rotate_leftRP8avl_nodeRP8avl_node">
+<span id="_CPPv315avl_rotate_leftRP8avl_nodeRP8avl_node"></span><span id="_CPPv215avl_rotate_leftRP8avl_nodeRP8avl_node"></span><span id="avl_rotate_left__avl_nodePR.avl_nodePR"></span><span class="target" id="avltree_8hpp_1af408c38a50504c8c6fbd78858af0a7d5"></span>int <code class="sig-name descname">avl_rotate_left</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415avl_rotate_leftRP8avl_nodeRP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
+<dd><p>avl_rotate_left Realiza una rotación hacia la izquierda en el AVL tree.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>error_code un código de error indicando el éxito o error de la función </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">in_root</span></code>: es el nodo raíz original del árbol </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">new_root</span></code>: es el puntero al nuevo nodo raíz del árbol</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv416avl_rotate_rightRP8avl_nodeRP8avl_node">
+<span id="_CPPv316avl_rotate_rightRP8avl_nodeRP8avl_node"></span><span id="_CPPv216avl_rotate_rightRP8avl_nodeRP8avl_node"></span><span id="avl_rotate_right__avl_nodePR.avl_nodePR"></span><span class="target" id="avltree_8hpp_1acde7916600255da901c6a1fb0cccfb83"></span>int <code class="sig-name descname">avl_rotate_right</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416avl_rotate_rightRP8avl_nodeRP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
+<dd><p>avl_rotate_right Realiza una rotación hacia la derecha en el AVL tree.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>error_code un código de error indicando el éxito o error de la función </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">in_root</span></code>: es el nodo raíz original del árbol </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">new_root</span></code>: es el puntero al nuevo nodo raíz del árbol</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv411avl_balanceRP8avl_nodeRP8avl_nodeRP8avl_node">
+<span id="_CPPv311avl_balanceRP8avl_nodeRP8avl_nodeRP8avl_node"></span><span id="_CPPv211avl_balanceRP8avl_nodeRP8avl_nodeRP8avl_node"></span><span id="avl_balance__avl_nodePR.avl_nodePR.avl_nodePR"></span><span class="target" id="avltree_8hpp_1ad0e01e9e38ee7b9becd7cdd88661141a"></span>int <code class="sig-name descname">avl_balance</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_node</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411avl_balanceRP8avl_nodeRP8avl_nodeRP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
+<dd><p>avl_balance Realiza comparaciones y actualizaciones de altura para balancear el árbol.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>error_code un código de error indicando el éxito o error de la función </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">in_root</span></code>: es el nodo raíz original del árbol </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">new_node</span></code>: es el nodo con el número flotante por insertar </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">new_root</span></code>: es el puntero al nuevo nodo raíz del árbol</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt id="_CPPv412avl_node_addP8avl_nodeP8avl_nodeP8avl_node">
 <span id="_CPPv312avl_node_addP8avl_nodeP8avl_nodeP8avl_node"></span><span id="_CPPv212avl_node_addP8avl_nodeP8avl_nodeP8avl_node"></span><span id="avl_node_add__avl_nodeP.avl_nodeP.avl_nodeP"></span><span class="target" id="avltree_8hpp_1ab6612372623b2fbe62691a20ff8ebb56"></span>int <code class="sig-name descname">avl_node_add</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *<em>new_node</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412avl_node_addP8avl_nodeP8avl_nodeP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
 <dd><p>avl_node_add Toma un nodo y lo inserta en la estructura de datos. Una nueva raíz puede ser obtenida.</p>
@@ -306,16 +355,6 @@
 </dl>
 </p>
 </dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv415avl_rotate_leftRP8avl_nodeRP8avl_node">
-<span id="_CPPv315avl_rotate_leftRP8avl_nodeRP8avl_node"></span><span id="_CPPv215avl_rotate_leftRP8avl_nodeRP8avl_node"></span><span id="avl_rotate_left__avl_nodePR.avl_nodePR"></span><span class="target" id="avltree_8hpp_1af408c38a50504c8c6fbd78858af0a7d5"></span>int <code class="sig-name descname">avl_rotate_left</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415avl_rotate_leftRP8avl_nodeRP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="cpp function">
-<dt id="_CPPv416avl_rotate_rightRP8avl_nodeRP8avl_node">
-<span id="_CPPv316avl_rotate_rightRP8avl_nodeRP8avl_node"></span><span id="_CPPv216avl_rotate_rightRP8avl_nodeRP8avl_node"></span><span id="avl_rotate_right__avl_nodePR.avl_nodePR"></span><span class="target" id="avltree_8hpp_1acde7916600255da901c6a1fb0cccfb83"></span>int <code class="sig-name descname">avl_rotate_right</code><span class="sig-paren">(</span><em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>in_root</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *&amp;<em>new_root</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416avl_rotate_rightRP8avl_nodeRP8avl_node" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
-<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv415avl_node_removeRP8avl_nodeRP8avl_nodeRP8avl_node">
@@ -386,7 +425,19 @@
 <dl class="cpp function">
 <dt id="_CPPv414avl_print_nodeRK6stringP8avl_nodeb">
 <span id="_CPPv314avl_print_nodeRK6stringP8avl_nodeb"></span><span id="_CPPv214avl_print_nodeRK6stringP8avl_nodeb"></span><span id="avl_print_node__stringCR.avl_nodeP.b"></span><span class="target" id="avltree_8hpp_1a03ff6547cacc0ba954e7b2d19ba6fd15"></span>int <code class="sig-name descname">avl_print_node</code><span class="sig-paren">(</span><em class="property">const</em> string &amp;<em>prefix</em>, <em class="property">struct</em> <a class="reference internal" href="#_CPPv48avl_node" title="avl_node">avl_node</a> *<em>in_root</em>, bool <em>isLeft</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv414avl_print_nodeRK6stringP8avl_nodeb" title="Enlazar permanentemente con esta definición">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>avl_print_node Se obtiene el nodo que contenga el valor mínimo en todo el árbol.</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>error_code un código de error indicando el éxito o error de la función </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">prefix</span></code>: es el prefijo para poder acomodar e imprimir el árbol. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">in_root</span></code>: es el nodo raíz original del árbol </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">isLeft</span></code>: booleano para decidir si se está imprimiendo un nodo a la derecha o a la izquierda</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv49avl_printP8avl_node">

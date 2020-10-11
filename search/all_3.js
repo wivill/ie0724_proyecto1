@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lc_5fnode_14',['lc_node',['../structavl__node.html#a191d49c9d8926cc0a0566e002a11e2ac',1,'avl_node']]]
+  ['lc_5fnode_18',['lc_node',['../structavl__node.html#a191d49c9d8926cc0a0566e002a11e2ac',1,'avl_node']]]
 ];
