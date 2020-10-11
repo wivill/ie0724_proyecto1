@@ -15,18 +15,22 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+from sphinx.builders.html import StandaloneHTMLBuilder
+import subprocess, os
 
+# Doxygen
+subprocess.call('doxygen Doxyfile.in', shell=True)
 
 # -- Project information -----------------------------------------------------
 
-project = 'AVL Tree'
+project = 'AVLtree'
 copyright = '2020, Mariela Hernandez, Jose Lopez, Willy Villalobos, Bernardo Zuñiga'
 author = 'Mariela Hernandez, Jose Lopez, Willy Villalobos, Bernardo Zuñiga'
 
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,6 +43,17 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.todo',
+    'sphinx.ext.coverage',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.ifconfig',
+    'sphinx.ext.viewcode',
+    'sphinx_sitemap',
+    'sphinx.ext.inheritance_diagram',
+    'breathe'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -68,12 +83,14 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
+highlight_language = 'c++'
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+# html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'canonical_url': '',
@@ -117,7 +134,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'AVLTreedoc'
+htmlhelp_basename = 'AVLtreedoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -144,7 +161,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'AVLTree.tex', 'AVL Tree Documentation',
+    (master_doc, 'AVLtree.tex', 'AVLtree Documentation',
      'Mariela Hernandez, Jose Lopez, Willy Villalobos, Bernardo Zuñiga', 'manual'),
 ]
 
@@ -154,7 +171,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'avltree', 'AVL Tree Documentation',
+    (master_doc, 'avltree', 'AVLtree Documentation',
      [author], 1)
 ]
 
@@ -165,8 +182,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'AVLTree', 'AVL Tree Documentation',
-     author, 'AVLTree', 'One line description of project.',
+    (master_doc, 'AVLtree', 'AVLtree Documentation',
+     author, 'AVLtree', 'One line description of project.',
      'Miscellaneous'),
 ]
 
@@ -187,3 +204,11 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+# -- Breathe configuration -------------------------------------------------
+
+breathe_projects = {
+	"AVLtree": "_build/xml/"
+}
+breathe_default_project = "AVLtree"
+breathe_default_members = ('members', 'undoc-members')
