@@ -30,8 +30,8 @@ TEST(avl_create, positive){
     //listaGanadora.push_front(0.5);
 
     struct avl_node *nombre = new avl_node{NULL, NULL, NULL, 11, 1};
-    struct avl_node *node_fin = new avl_node{NULL, NULL, NULL, 11, 1};
-    status = avl_create(&listaGanadora, nombre, nombre);
+    // struct avl_node *node_fin = new avl_node{NULL, NULL, NULL, 11, 1};
+    status = avl_create(&listaGanadora, nombre);
     avl_print(nombre);
 
     ASSERT_EQ(status, AVL_SUCCESS);

@@ -76,8 +76,8 @@ int max(
  */
 int avl_create(
   list<float>     *in_number_list,
-  struct avl_node *new_root_node,
-  struct avl_node *fin_root_node);
+  struct avl_node *new_root_node
+);
 
 
 /**
@@ -136,7 +136,8 @@ int avl_get_balance(
 int avl_node_add(
   struct avl_node  *in_root,
   struct avl_node  *new_node,
-  struct avl_node  *new_root);
+  struct avl_node  *new_root
+);
 
 int avl_rotate_left(
   struct avl_node  *&in_root,
