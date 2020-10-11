@@ -53,15 +53,16 @@ TEST(avl_print, positive){
 
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
     avl_create(&listaGanadora, nombre);
-
+  
     status = avl_print(nombre);
 
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-///*
-//Test negativo para avl_node_add. Probando condición para new_root == NULL
-//*/
+
+/*
+Test negativo para avl_node_add. Probando condición para new_root == NULL
+*/
 
 TEST(avl_node_add, negative){
     int status;
@@ -83,10 +84,10 @@ TEST(avl_node_add, negative){
     ASSERT_EQ(status, AVL_INVALID_PARAM);
 }
 
-///*
-//Test positivo para avl_node_add. Agregando nodo 14.
-//*/
 
+/*
+Test positivo para avl_node_add. Agregando nodo 14.
+*/
 TEST(avl_node_add, positive){
     int status;
     list<float> listaGanadora;
@@ -109,10 +110,10 @@ TEST(avl_node_add, positive){
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-///*
-//Test positivo para avl_rotate_left.
-//*/
 
+/*
+Test positivo para avl_rotate_left.
+*/
 TEST(avl_rotate_left, positive){
     int status;
     list<float> listaGanadora;
@@ -137,11 +138,12 @@ TEST(avl_rotate_left, positive){
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
+
 ///*
 //Test positivo para avl_rotate_right.
 //*/
-
 TEST(avl_rotate_right, positive){
+
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -165,11 +167,12 @@ TEST(avl_rotate_right, positive){
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-///*
-//Test positivo para avl_search
-//*/
 
+/*
+Test positivo para avl_search
+*/
 TEST(avl_search, positive){
+
     int status;
     list<float> listaGanadora;
     listaGanadora.push_front(18.5);
@@ -180,24 +183,21 @@ TEST(avl_search, positive){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
-
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
     avl_create(&listaGanadora, nombre);
-    cout << "Imprimiendo árbol original" << endl;
     avl_print(nombre);
-    
-    struct avl_node* busq;
-    status = avl_search(nombre, 18.5, &busq);
-    cout << "Imprimiendo nodo del search" << endl;
-    avl_print(busq);
-    ASSERT_EQ(status, AVL_SUCCESS);
+
+    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
+    status = avl_node_add(nombre, nuevo_nodo, NULL);
+    avl_print(nombre);
+
+    ASSERT_EQ(status, AVL_INVALID_PARAM);
 }
 
-///*
-//Test negativo para avl_search, con un parámetro inválido para valor buscado
-//*/
 
+/*
+Test negativo para avl_search, con un parámetro inválido para valor buscado
+*/
 TEST(avl_search, negative){
     int status;
     list<float> listaGanadora;
@@ -208,7 +208,6 @@ TEST(avl_search, negative){
     listaGanadora.push_front(55.2);
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
-
 
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
 
@@ -223,10 +222,10 @@ TEST(avl_search, negative){
     ASSERT_EQ(status, AVL_NOT_FOUND);    
 }
 
-///*
-//Test positivo free_avl_tree
-//*/
 
+/*
+Test positivo free_avl_tree
+*/
 TEST(free_avl_tree, positive){
     int status;
     list<float> listaGanadora;
@@ -238,6 +237,7 @@ TEST(free_avl_tree, positive){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
+
     struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
 
     avl_create(&listaGanadora, nombre);
@@ -247,9 +247,9 @@ TEST(free_avl_tree, positive){
 }
 
 
-///*
-//Test positivo balance
-//*/
+/*
+Test positivo balance
+*/
 
 TEST(avl_balance, positive){
     int status;
@@ -276,10 +276,10 @@ TEST(avl_balance, positive){
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
-///*
-//Test positivo max_get
-//*/
 
+/*
+Test positivo max_get
+*/
 TEST(avl_max_get, positive){
     int status;
     list<float> listaGanadora;
@@ -300,9 +300,9 @@ TEST(avl_max_get, positive){
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
-///*
-//Test positivo min_get
-//*/
+/*
+Test positivo min_get
+*/
 
 TEST(avl_min_get, positive){
     int status;
@@ -324,9 +324,9 @@ TEST(avl_min_get, positive){
     ASSERT_EQ(status, AVL_SUCCESS);    
 }
 
-///*
-//Test positivo para avl_node_remove. Removiendo nodo hoja
-//*/
+/*
+Test positivo para avl_node_remove. Removiendo nodo hoja
+*/
 
 TEST(avl_node_remove, positive1){
     int status;
@@ -357,9 +357,9 @@ TEST(avl_node_remove, positive1){
     ASSERT_EQ(status, AVL_SUCCESS);
 }
 
-///*
-//Test positivo para avl_node_remove. Removiendo nodo intermedio
-//*/
+/*
+Test positivo para avl_node_remove. Removiendo nodo intermedio
+*/
 
 TEST(avl_node_remove, positive2){
     int status;
