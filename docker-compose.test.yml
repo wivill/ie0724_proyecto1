@@ -4,6 +4,8 @@ services:
     
     sut:
         build: .
-        command: ./test
+        image: proyecto1:latest
+        container_name: ins_proyecto1
+        command:  ./run_unittest
 
 
