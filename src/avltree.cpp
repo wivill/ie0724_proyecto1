@@ -35,7 +35,8 @@ int avl_create(
   avl_node       *new_root_node
   )
 {
-  struct avl_node* new_root;
+  
+  struct avl_node* new_root = new_root_node; //sirve para inicializar
   for (auto &&value : *in_number_list)
   {
     avl_node* new_node =  new avl_node{NULL, NULL, NULL, value};
@@ -245,7 +246,6 @@ int avl_node_add(
   struct avl_node  *new_node,
   struct avl_node  *new_root
   ){
-  
   if (new_node == NULL)
   {
     return AVL_INVALID_PARAM;
