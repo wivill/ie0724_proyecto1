@@ -23,3 +23,9 @@ check: build
 .PHONY: clean
 clean:
 	@rm -rf build
+
+# Genera documentación.
+.PHONY: docs
+docs: make
+	@cd build && make docs
+	@cd docs_sphinx && make html

@@ -6,10 +6,13 @@ using namespace std;
 
 /**
  * @file avltree.hpp
- * @author your name (you@domain.com)
- * @brief 
+ * @author  Mariela Hernández (mariela.hernandezchacon@ucr.ac.cr)
+ *          José López (jose.lopezpicado@ucr.ac.cr)
+ *          Willy Villalobos (willy.villalobos@ucr.ac.cr)
+ *          Bernardo Zúñiga (bernardo.zuniga@ucr.ac.cr)
+ * @brief  
  * @version 0.1
- * @date 2020-08-31
+ * @date 2020-10-12
  * 
  * @copyright Copyright (c) 2020
  * 

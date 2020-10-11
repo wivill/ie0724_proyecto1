@@ -172,7 +172,7 @@ int avl_balance(
                             avl_get_height(in_root->rc_node));
 
   //Se obtiene el balance
-  int balance = avl_get_balance(in_root)
+  int balance = avl_get_balance(in_root);
   cout << "Altura = " << balance << endl;
 
   if (balance > 1 && in_root->value < in_root->lc_node->value)
