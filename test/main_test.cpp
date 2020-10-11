@@ -183,15 +183,17 @@ TEST(avl_search, positive){
     listaGanadora.push_front(42.69);
     listaGanadora.push_front(0.5);
 
-    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11};
+    struct avl_node* nombre = new avl_node{NULL, NULL, NULL, 11, 1};
+
     avl_create(&listaGanadora, nombre);
+    cout << "Imprimiendo árbol original" << endl;
     avl_print(nombre);
 
-    struct avl_node* nuevo_nodo = new avl_node{NULL, NULL, NULL, 14};
-    status = avl_node_add(nombre, nuevo_nodo, NULL);
-    avl_print(nombre);
-
-    ASSERT_EQ(status, AVL_INVALID_PARAM);
+    struct avl_node* busq;
+    status = avl_search(nombre, 55.2, &busq);
+    cout << "Imprimiendo nodo del search" << endl;
+    avl_print(busq);
+    ASSERT_EQ(status, AVL_SUCCESS);  
 }
 
 
