@@ -12,13 +12,12 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Requirements
-      run: sudo apt install doxygen
-        && sudo apt install sphinx
-        && sudo apt install python3-pip
+      run: brew install doxygen
+        && brew install sphinx-doc
         && pip3 install sphinx-rtd-theme
         && pip3 install breathe
         && pip3 install sphinx-sitemap
