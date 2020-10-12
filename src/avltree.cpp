@@ -235,13 +235,13 @@ int avl_node_add(
     if (in_root->lc_node != NULL)
     {
       avl_node_add(in_root->lc_node, new_node, new_root);
-      avl_balance(in_root->lc_node, new_node, new_root);
+      //avl_balance(in_root->lc_node, new_node, new_root);
     }
     else
     {
       in_root->lc_node          = new_node;
       in_root->lc_node->pc_node = in_root;
-      avl_balance(in_root, new_node, new_root);
+      //avl_balance(in_root, new_node, new_root);
     }
   }
   else if (new_node->value > in_root->value)
@@ -249,13 +249,13 @@ int avl_node_add(
     if (in_root->rc_node != NULL)
     {
       avl_node_add(in_root->rc_node, new_node, new_root);
-      avl_balance(in_root->rc_node, new_node, new_root);
+      //avl_balance(in_root->rc_node, new_node, new_root);
     }
     else
     {
       in_root->rc_node          = new_node;
       in_root->rc_node->pc_node = in_root;
-      avl_balance(in_root, new_node, new_root);
+      //avl_balance(in_root, new_node, new_root);
     }
   }
   else
