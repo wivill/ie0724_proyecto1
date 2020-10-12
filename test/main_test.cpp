@@ -36,9 +36,9 @@ TEST(avl_create, positive){
 }
 
 
-///*
-//Test positivo para avl_create
-//*/
+/*
+Test positivo para print
+*/
 
 TEST(avl_print, positive){
     int status;

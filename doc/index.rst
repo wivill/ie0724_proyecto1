@@ -18,6 +18,8 @@ Contenidos
     :maxdepth: 2
     
     self
+    user_guide/user_guide
+    complexity/complexity
     api/index
 
 
@@ -25,6 +27,4 @@ Contenidos
 =================
 
 * :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
-
