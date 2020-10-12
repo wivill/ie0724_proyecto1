@@ -22,6 +22,7 @@
  proyecto 1 del curso IE0724 - Laboratorio de Programación.
 
  Git repo: https://github.com/wivill/ie0724_proyecto1.git
+ Documentación: https://wivill.github.io/ie0724_proyecto1/
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
